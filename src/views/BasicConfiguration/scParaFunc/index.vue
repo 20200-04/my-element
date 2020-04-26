@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import ScParaFunc from "../../../api/modules/scParaFunc";
+import scParaFunc from "../../../api/modules/scParaFunc";
 // 公共的搜索栏组件
 import SearchBar from "../../../components/SearchBar/index.vue";
 import Dialog from "./components/Dialog";
@@ -94,24 +94,24 @@ export default {
   methods: {
     async getList() {
       this.layout.showLoading();
-      const { data } = await ScParaFunc.getScParaFunc();
+      const { data } = await scParaFunc.getScParaFunc();
       this.tableData = data;
       this.getListAll();
       this.layout.hideLoading();
     },
     async addType(obj) {
-      const { data } = await ScParaFunc.postScParaFunc(obj);
+      const { data } = await scParaFunc.postScParaFunc(obj);
     },
     async deleteSingle(id) {
-      const { data } = await ScParaFunc.deleteScParaFuncId(id);
+      const { data } = await scParaFunc.deleteScParaFuncId(id);
     },
     async puteScType(obj) {
       console.log(obj);
-      const { data } = await ScParaFunc.putScParaFuncId(obj);
+      const { data } = await scParaFunc.putScParaFuncId(obj);
     },
     async getListId(str) {
       this.layout.showLoading();
-      const { data } = await ScParaFunc.getScParaFuncId(str);
+      const { data } = await scParaFunc.getScParaFuncId(str);
       if (!data) {
         this.tableData = [];
       } else {

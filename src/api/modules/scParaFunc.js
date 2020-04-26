@@ -5,7 +5,7 @@ import {
   putRequest
 } from '../../utils/request'
 
-const ScParaFunc = {
+const scParaFunc = {
   getScParaFunc(params = {}) {
     return getRequest('/api/scParaFunc/paraFunc', params);
   },
@@ -25,4 +25,4 @@ const ScParaFunc = {
     return getRequest(`api/scParaFunc/paraFunc/${params}`);
   }
 }
-export default ScParaFunc;
+export default scParaFunc;

@@ -56,7 +56,6 @@
     />
   </div>
 </template>
-
 <script>
 import scTeleCommands from "../../../api/modules/scTelecommand";
 // 公共的搜索栏组件
@@ -64,8 +63,6 @@ import SearchBar from "../../../components/SearchBar/index.vue";
 import scInfo from "../../../api/modules/scInfo";
 import Dialog from "./components/Dialog";
 import filterFun from "../../../utils/filter";
-
-
 //分页
 import pagination from "../../../components/pagination";
 
