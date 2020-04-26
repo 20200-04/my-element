@@ -5,7 +5,7 @@ import {
   putRequest
 } from '../../utils/request'
 
-const ScTeleCommands = {
+const scTeleCommands = {
   getScTeleCommandLists(params = {}) {
     return getRequest('/api/ScTeleCommandList/ScTeleCommandLists', params);
   },
@@ -16,10 +16,11 @@ const ScTeleCommands = {
     return deleteRequest(`api/ScTeleCommand/ScTeleCommands/${params}`);
   },
   putScTeleCommandsId(obj = {}) {
-    return putRequest(`api/ScTeleCommand/ScTeleCommands/${obj.paraId}`, obj);
+    console.log(obj.paraId);
+    return putRequest(`api/ScTeleCommand/ScTeleCommands/${obj.commandId}`, obj);
   },
   getScTeleCommandsId(params) {
     return getRequest(`api/ScTeleCommandList/ScTeleCommandLists/${params}`);
   }
 }
-export default ScTeleCommands;
+export default scTeleCommands;

@@ -1,7 +1,9 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
+      <el-scrollbar wrapClass="scrollbar-wrap" :style="{height:scrollHeight}"  ref="scrollbarContainer">
       <router-view :key="key" />
+      </el-scrollbar>
     </transition>
   </section>
 </template>
@@ -9,10 +11,18 @@
 <script>
 export default {
   name: 'AppMain',
+  data(){
+    return{
+      scrollHeight:'0px',
+    }
+  },
   computed: {
     key() {
       return this.$route.path
     }
+  },
+  mounted() {
+    this.scrollHeight = window.innerHeight * 0.9 + 'px';
   }
 }
 </script>
@@ -35,6 +45,16 @@ export default {
 .el-popup-parent--hidden {
   .fixed-header {
     padding-right: 15px;
+  }
+}
+.el-scrollbar{
+  height: 100%;
+  .scrollbar-wrap{
+    overflow-x: hidden;
+    width: calc(100% + 17px);
+  }
+  .el-scrollbar__bar{
+
   }
 }
 </style>

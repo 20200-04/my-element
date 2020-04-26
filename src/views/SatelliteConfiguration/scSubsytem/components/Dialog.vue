@@ -22,7 +22,7 @@
         <el-form-item label="分系统配置名称" prop="subsytemTypeId">
           <el-select v-model="form.subsytemTypeId" size="mini" placeholder="请选择分系统配置">
             <el-option
-              v-for="(item,index) in transmitObj.subsystemType"
+              v-for="(item,index) in transmitObj.scSubSytemType"
               :key="index"
               :label="item.name"
               :value="item.id"

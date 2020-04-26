@@ -190,9 +190,9 @@ export default {
       this.layout.showLoading();
       const { data } = await scParaInfo.getScParaInfo();
       console.log(data);
-      this.getScInfo();
       this.tableData = data;
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.getScInfo();
       this.getListAll();
       this.layout.hideLoading();
     },

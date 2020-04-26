@@ -15,7 +15,6 @@
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
-    <el-scrollbar wrapClass="scrollbar-wrap" :style="{height:scrollHeight}"  ref="scrollbarContainer">
       <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange" style="width: 100%">
         <el-table-column type="selection" width="45" align="center"></el-table-column>
         <el-table-column align="center" prop="scId" label="卫星ID" width="65"></el-table-column>
@@ -38,7 +37,6 @@
           </template>
         </el-table-column>
     </el-table>
-    </el-scrollbar>
     <!-- 分页 -->
     <div class="footer">
       <pagination
@@ -60,7 +58,7 @@
 </template>
 
 <script>
-import ScTeleCommands from "../../../api/modules/scTelecommand";
+import scTeleCommands from "../../../api/modules/scTelecommand";
 // 公共的搜索栏组件
 import SearchBar from "../../../components/SearchBar/index.vue";
 import scInfo from "../../../api/modules/scInfo";
@@ -80,32 +78,26 @@ export default {
   },
   data() {
     return {
-      scrollHeight:'0px',
       title: "",
       createModel: false, // 弹框显示隐藏
       form: {},
+      // 数据整体存储
       tableData: [],
       tableDataCopy: [],
+      tableConst: [],
       multipleSelection: [],
-      scParams: [],
-      paginations: {
-        page: 1,
-        limit: 13,
-        pageTotal: 0
-      },
       searchObj: {
         scName: "",
         commandName: ""
       },
       satelliteType: [],
       scTeleCommandType: [],
-      inputs: [
-        {
-          model: "input",
-          placeholder: "卫星指令名称"
-        }
-      ],
-      selects: []
+      paginations: {
+        //分页
+        page: 1,
+        limit: 13,
+        pageTotal: 0
+      }
     };
   },
   watch: {
@@ -115,7 +107,7 @@ export default {
           if (newValue.scName === "" && newValue.commandName === "") {
             this.disabled = true;
             this.tableData = this.tableConst;
-            // console.log(this.tableData);
+            console.log(this.tableData);
             this.getListAll();
           } else {
             this.disabled = false;
@@ -127,24 +119,23 @@ export default {
     }
   },
   mounted() {
+    this.layout.showLoading();
     if (this.$route.params.obj && this.$route.params.obj.scId) {
-      this.layout.showLoading();
       this.getListId(this.$route.params.obj.scId);
       console.log(this.$route.params.obj.scId);
-      this.layout.hideLoading();
     } else {
       this.getList()
     }
-    this.scrollHeight = window.innerHeight * 0.8 + 'px';
+    this.layout.hideLoading();
   },
   methods: {
     async getList() {
       this.layout.showLoading();
-      const { data } = await ScTeleCommands.getScTeleCommandLists();
+      const { data } = await scTeleCommands.getScTeleCommandLists();
       this.tableData = data;
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
-      this.getListAll();
       this.getsatelliteType();
+      this.getListAll();
       let res = data.map(item => {
         return {
           id: item.commandId,
@@ -168,20 +159,20 @@ export default {
       console.log(res);
     },
     async addType(obj) {
-      const { data } = await ScTeleCommands.postScTeleCommands(obj);
+      const { data } = await scTeleCommands.postScTeleCommands(obj);
     },
     async deleteSingle(id) {
-      const { data } = await ScTeleCommands.deleteScTeleCommandsId(id);
+      const { data } = await scTeleCommands.deleteScTeleCommandsId(id);
     },
     async puteScType(obj) {
       console.log(obj);
-      const { data } = await ScTeleCommands.putScTeleCommandsId(obj);
+      const { data } = await scTeleCommands.putScTeleCommandsId(obj);
     },
     async getListId(str) {
-      const { data } = await ScTeleCommands.getScTeleCommandsId(str);
+      const { data } = await scTeleCommands.getScTeleCommandsId(str);
       this.tableData = data;
-      this.getListAll();
       this.getsatelliteType();
+      this.getListAll();
     },
     openModel(e = false) {
       if (!e) {
@@ -280,6 +271,7 @@ export default {
           index < this.paginations.limit * this.paginations.page &&
           index >= this.paginations.limit * (this.paginations.page - 1)
       );
+      console.log(this.tableDataCopy);
     },
     handleCurrentChange(val) {
       this.paginations.page = val;
@@ -303,16 +295,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .el-scrollbar{
-    height: 100%;
-    .scrollbar-wrap{
-      overflow-x: hidden;
-      width: calc(100% + 17px);
-    }
-    .el-scrollbar__bar{
-
-    }
-  }
   .type {
   &-container {
     margin: 30px;

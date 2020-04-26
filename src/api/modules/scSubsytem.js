@@ -6,7 +6,7 @@ import {
   putRequest
 } from '../../utils/request'
 
-const ScSubSytem = {
+const scSubSytem = {
   getScSubSytem(params = {}) {
     return getRequest('/api/ScSubSytem/ScSubSytems', params);
   },
@@ -17,10 +17,10 @@ const ScSubSytem = {
     return deleteRequest(`api/ScSubSystemConfig/ScSubSystemConfigs/${params}`);
   },
   putScSubSytemId(obj = {}) {
-    return putRequest(`api/ScSubSystemConfig/ScSubSystemConfigs/${obj.commandId}`, obj);
+    return putRequest(`api/ScSubSystemConfig/ScSubSystemConfigs/${obj.subsytemId}`, obj);
   },
   getScSubSytemId(params) {
     return getRequest(`api/ScSubSytem/ScSubSytems/${params}`);
   }
 }
-export default ScSubSytem;
+export default scSubSytem;

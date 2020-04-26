@@ -5,7 +5,7 @@
       <div>
         <el-select v-model="searchObj.subsytemName" filterable clearable placeholder="请选择卫星类型">
           <el-option
-            v-for="item in transmitObj.ScSubSytemType"
+            v-for="item in transmitObj.scSubSytemType"
             :key="item.id"
             :label="item.name"
             :value="item.name"
@@ -15,7 +15,6 @@
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
-    <el-scrollbar wrapClass="scrollbar-wrap" :style="{height:scrollHeight}"  ref="scrollbarContainer">
       <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange" style="width: 100%">
         <el-table-column type="selection" width="45" align="center"></el-table-column>
         <el-table-column align="center" prop="scid" label="卫星ID" width="65"></el-table-column>
@@ -36,7 +35,6 @@
           </template>
         </el-table-column>
     </el-table>
-    </el-scrollbar>
     <!-- 分页 -->
     <div class="footer">
       <pagination
@@ -58,7 +56,7 @@
 </template>
 
 <script>
-import ScSubSytem from "../../../api/modules/scSubsytem";
+import scSubSytem from "../../../api/modules/scSubsytem";
 // 公共的搜索栏组件
 import SearchBar from "../../../components/SearchBar/index.vue";
 import scSubsytemType from "../../../api/modules/scSubsytemType";
@@ -77,34 +75,27 @@ export default {
   },
   data() {
     return {
-      scrollHeight:'0px',
       title: "",
       createModel: false, // 弹框显示隐藏
       form: {},
+      // 数据整体存储
       tableData: [],
       tableDataCopy: [],
       multipleSelection: [],
-      scParams: [],
-      paginations: {
-        page: 1,
-        limit: 13,
-        pageTotal: 0
-      },
       searchObj: {
         scName: "",
         typeName: ""
       },
       transmitObj: {
         satelliteType: [],
-        ScSubSytemType: []
+        scSubSytemType: []
       },
-      inputs: [
-        {
-          model: "input",
-          placeholder: "卫星分系统配置名称"
-        }
-      ],
-      selects: []
+      //分页
+      paginations: {
+        page: 1,
+        limit: 13,
+        pageTotal: 0
+      }
     };
   },
   watch: {
@@ -125,19 +116,19 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.params);
+    this.layout.showLoading();
     this.getList();
-    this.scrollHeight = window.innerHeight * 0.8 + 'px';
+    this.layout.hideLoading();
   },
   methods: {
     async getList() {
       this.layout.showLoading();
-      const { data } = await ScSubSytem.getScSubSytem();
+      const { data } = await scSubSytem.getScSubSytem();
       this.tableData = data;
-      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
-      this.getListAll();
       this.getsatelliteType();
       this.getscSubsystemType()
+      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.getListAll();
       this.layout.hideLoading();
     },
     // 查询卫星id
@@ -161,23 +152,23 @@ export default {
           name: item.subsytemName
         };
       });
-      this.transmitObj.ScSubSytemType = res;
+      this.transmitObj.scSubSytemType = res;
       console.log(res);
     },
     async addType(obj) {
-      const { data } = await ScSubSytem.postScSubSytem(obj);
+      const { data } = await scSubSytem.postScSubSytem(obj);
     },
     async deleteSingle(id) {
-      const { data } = await ScSubSytem.deleteScSubSytemId(id);
+      const { data } = await scSubSytem.deleteScSubSytemId(id);
     },
     async puteScType(obj) {
       console.log(obj);
-      const { data } = await ScSubSytem.putScSubSytemId(obj);
+      const { data } = await scSubSytem.putScSubSytemId(obj);
     },
     async getListId(str) {
       this.layout.showLoading();
       console.log(str);
-      const { data } = await ScSubSytem.getScSubSytemId(str);
+      const { data } = await scSubSytem.getScSubSytemId(str);
       console.log(data);
       this.layout.hideLoading();
     },
@@ -273,7 +264,6 @@ export default {
           index < this.paginations.limit * this.paginations.page &&
           index >= this.paginations.limit * (this.paginations.page - 1)
       );
-      console.log(this.tableDataCopy);
     },
     handleCurrentChange(val) {
       this.paginations.page = val;
@@ -297,16 +287,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .el-scrollbar{
-    height: 100%;
-    .scrollbar-wrap{
-      overflow-x: hidden;
-      width: calc(100% + 17px);
-    }
-    .el-scrollbar__bar{
-
-    }
-  }
   .type {
   &-container {
     margin: 30px;

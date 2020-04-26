@@ -4,7 +4,6 @@
       <el-button size="mini" type="success" @click="openModel(false)">添加卫星类型</el-button>
       <SearchBar :inputs="inputs" :selects="selects" @goGetList="getList()" @search="search" />
     </div>
-    <el-scrollbar wrapClass="scrollbar-wrap" :style="{height: scrollHeight}"  ref="scrollbarContainer">
       <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange"  style="width: 100%">
         <el-table-column type="selection" width="45" align="center"></el-table-column>
         <el-table-column align="center" prop="typeId" label="ID" width="180"></el-table-column>
@@ -23,7 +22,6 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-scrollbar>
     <!-- 分页 -->
     <div class="footer">
       <pagination
@@ -61,7 +59,6 @@ export default {
   },
   data() {
     return {
-      scrollHeight:'0px',
       title: "",
       createModel: false, // 弹框显示隐藏
       form: {},
@@ -83,8 +80,9 @@ export default {
     };
   },
   mounted() {
-    this.scrollHeight = window.innerHeight * 0.8 + 'px';
+    this.layout.showLoading();
     this.getList();
+    this.layout.hideLoading();
   },
   watch: {},
   methods: {
@@ -234,16 +232,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .el-scrollbar{
-    height: 100%;
-    .scrollbar-wrap{
-      overflow-x: hidden;
-      width: calc(100% + 17px);
-    }
-    .el-scrollbar__bar{
-
-    }
-  }
 .type {
   &-container {
     margin: 30px;

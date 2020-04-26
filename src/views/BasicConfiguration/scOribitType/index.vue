@@ -4,7 +4,6 @@
       <el-button size="mini" type="success" @click="openModel(false)">添加卫星轨道类型</el-button>
       <SearchBar :inputs="inputs" :selects="selects" @search="search" />
     </div>
-    <el-scrollbar wrapClass="scrollbar-wrap" :style="{height: scrollHeight}"  ref="scrollbarContainer">
       <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange"  style="width: 100%">
         <el-table-column type="selection" width="45" align="center"></el-table-column>
         <el-table-column align="center" prop="orbitId" label="ID" width="180"></el-table-column>
@@ -22,7 +21,6 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-scrollbar>
     <!-- 弹出框 -->
     <Dialog
       ref="ruleForm"
@@ -58,7 +56,6 @@ export default {
   },
   data() {
     return {
-      scrollHeight: '0px',
       title: "",
       createModel: false, // 弹框显示隐藏
       form: {},
@@ -80,15 +77,9 @@ export default {
     };
   },
   mounted() {
+    this.layout.showLoading();
     this.getList();
-    this.scrollHeight = window.innerHeight * 0.8 + 'px';
-  },
-  watch: {
-    // inputs: {
-    //   handler(val, oldVal) {
-    //   },
-    //   deep: true //true 深度监听
-    // }
+    this.layout.hideLoading();
   },
   methods: {
     async getList() {
@@ -238,16 +229,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .el-scrollbar{
-    height: 100%;
-    .scrollbar-wrap{
-      overflow-x: hidden;
-      width: calc(100% + 17px);
-    }
-    .el-scrollbar__bar{
-
-    }
-  }
 .type {
   &-container {
     margin: 30px;
