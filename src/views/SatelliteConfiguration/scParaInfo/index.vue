@@ -38,10 +38,10 @@
       </div>
     </div>
     <el-table :data="tableDataCopy" border style="width: 100%">
-      <el-table-column type="selection" width="45" align="center"></el-table-column>
-      <el-table-column align="center" prop="paraId" label="参数ID" width="180"></el-table-column>
-      <el-table-column align="center" prop="scId" label="卫星ID" width="180"></el-table-column>
-      <el-table-column align="center" prop="apId" label="识别过程ID"></el-table-column>
+      <el-table-column type="selection" width="45" fixed align="center"></el-table-column>
+      <el-table-column align="center" prop="paraId" label="参数ID" fixed width="180"></el-table-column>
+      <!-- <el-table-column align="center" prop="scId" label="卫星ID" width="180"></el-table-column>
+      <el-table-column align="center" prop="apId" label="识别过程ID"></el-table-column>-->
       <el-table-column align="center" prop="subsytemName" label="所属分系统"></el-table-column>
 
       <el-table-column align="center" prop="paraName" label="参数名称"></el-table-column>
@@ -64,7 +64,7 @@
       <el-table-column align="center" prop="create_time" label="入库时间" width="160">
         <template slot-scope="scope">{{scope.row.createTime | time}}</template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="250">
+      <el-table-column align="center" label="操作" fixed="right" width="250">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
           <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
@@ -121,7 +121,7 @@ export default {
   },
   data() {
     return {
-      disabled: false,
+      disabled: true,
       title: "",
       createModel: false, // 弹框显示隐藏
       editIndex: -1,
@@ -165,9 +165,11 @@ export default {
           if (
             newValue.scId === "" &&
             newValue.apId === "" &&
-            newValue.subsytemId === "" &&
-            newValue.paraId === ""
+            newValue.subsystemId === "" &&
+            newValue.paraName === ""
           ) {
+            console.log(11111111);
+
             this.disabled = true;
             this.tableData = this.tableConst;
             this.getListAll();
@@ -190,9 +192,9 @@ export default {
       this.layout.showLoading();
       const { data } = await scParaInfo.getScParaInfo();
       console.log(data);
+      this.getScInfo();
       this.tableData = data;
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
-      this.getScInfo();
       this.getListAll();
       this.layout.hideLoading();
     },
@@ -209,7 +211,7 @@ export default {
     },
     // 卫星分系统类型
     async getSubSytems(val) {
-      const { data } = await scSubsytem.getScSubSytemsId(val);
+      const { data } = await scSubsytem.getScSubSytemId(val);
       let res = data.map(item => {
         return {
           id: item.subsytemId,

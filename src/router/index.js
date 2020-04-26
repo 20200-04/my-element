@@ -13,92 +13,103 @@ import LayoutMain from '@/layout/layoutMain'
  * @路由拆分 一级二级三级  三级后不在拆分
  */
 import satelliteConfigurationFirst from './modules/firstRouter/satelliteConfiguration'
-import nestedFirst from './modules/firstRouter/nested'
-import dashboardFirst from './modules/firstRouter/dashboard'
+// import nestedFirst from './modules/firstRouter/nested'
+// import dashboardFirst from './modules/firstRouter/dashboard'
 import basicConfigurationFirst from './modules/firstRouter/basicConfiguration'
+import dataMonitoringFirst from './modules/firstRouter/dataMonitoringFirst'
 
 export const constantRoutes = [{
-  path: '/login',
-  component: () => import('@/views/login/index'),
-  hidden: true
-},
-/**
- * @LayoutMain 路由
- */
-{
-  path: '/btns',
-  component: LayoutMain,
-},
-{
-  path: '/404',
-  component: () => import('@/views/404'),
-  hidden: true
-},
-
-
-
-/**
- * @Layout 路由
- */
-// {
-//   path: '/',
-//   component: Layout,
-//   redirect: '/dashboard',
-//   children: dashboardFirst
-// },
-
-{
-  path: '/satelliteConfiguration',
-  component: Layout,
-  redirect: '/satelliteConfiguration/scInfo',
-  name: 'satelliteConfiguration',
-  meta: {
-    title: '卫星配置',
-    icon: 'satelliteConfiguration'
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
   },
-  children: satelliteConfigurationFirst
-},
-{
-  path: '/basicConfiguration',
-  component: Layout,
-  redirect: '/basicConfiguration/scType',
-  meta: {
-    title: '基础配置',
-    icon: 'basicConfiguration'
+  /**
+   * @LayoutMain 路由
+   */
+  {
+    path: '/btns',
+    component: LayoutMain,
   },
-  children: basicConfigurationFirst
-},
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
 
-// {
-//   path: '/nested',
-//   component: Layout,
-//   redirect: '/nested/menu1',
-//   name: 'Nested',
-//   meta: {
-//     title: 'Nested',
-//     icon: 'nested'
-//   },
-//   children: nestedFirst
-// },
 
-// {
-//   path: 'external-link',
-//   component: Layout,
-//   children: [{
-//     path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-//     meta: {
-//       title: 'External Link',
-//       icon: 'link'
-//     }
-//   }]
-// },
 
-// 404 page must be placed at the end !!!
-{
-  path: '*',
-  redirect: '/404',
-  hidden: true
-}
+  /**
+   * @Layout 路由
+   */
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: dashboardFirst
+  // },
+
+  {
+    path: '/satelliteConfiguration',
+    component: Layout,
+    redirect: '/satelliteConfiguration/scInfo',
+    name: 'satelliteConfiguration',
+    meta: {
+      title: '卫星配置',
+      icon: 'satelliteConfiguration'
+    },
+    children: satelliteConfigurationFirst
+  },
+  {
+    path: '/basicConfiguration',
+    component: Layout,
+    redirect: '/basicConfiguration/scType',
+    meta: {
+      title: '基础配置',
+      icon: 'basicConfiguration'
+    },
+    children: basicConfigurationFirst
+  },
+  {
+    path: '/dataMonitoring',
+    component: Layout,
+    redirect: '/dataMonitoring/scSum',
+    meta: {
+      title: '数据监视',
+      icon: 'dataMonitoring'
+    },
+    children: dataMonitoringFirst
+  },
+
+  // {
+  //   path: '/nested',
+  //   component: Layout,
+  //   redirect: '/nested/menu1',
+  //   name: 'Nested',
+  //   meta: {
+  //     title: 'Nested',
+  //     icon: 'nested'
+  //   },
+  //   children: nestedFirst
+  // },
+
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [{
+  //     path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //     meta: {
+  //       title: 'External Link',
+  //       icon: 'link'
+  //     }
+  //   }]
+  // },
+
+  // 404 page must be placed at the end !!!
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 ]
 
 const createRouter = () => new Router({
