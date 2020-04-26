@@ -2,7 +2,10 @@
   <div class="type-container">
     <div class="fun-head">
       <el-button size="mini" type="success" @click="openModel(false)">添加卫星类型</el-button>
-      <SearchBar :inputs="inputs" :selects="selects" @goGetList="getList()" @search="search" />
+      <div>
+        <el-input v-model="searchObj.typeName" style="width:180px" placecholder="请输入卫星类型名称"></el-input>
+        <el-button type="primary" @click="searchData" :disabled="disabled">搜索</el-button>
+      </div>
     </div>
       <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange"  style="width: 100%">
         <el-table-column type="selection" width="45" align="center"></el-table-column>
@@ -46,6 +49,7 @@ import scType from "../../../api/modules/scType";
 // 公共的搜索栏组件
 import SearchBar from "../../../components/SearchBar/index.vue";
 import Dialog from "./components/Dialog";
+import filterFun from '../../../utils/filter'
 //分页
 import pagination from "../../../components/pagination";
 
@@ -63,20 +67,17 @@ export default {
       createModel: false, // 弹框显示隐藏
       form: {},
       tableData: [],
+      tableConst:[],
       tableDataCopy: [],
       multipleSelection: [],
+      searchObj:{
+        typeName:''
+      },
       paginations: {
         page: 1,
         limit: 13,
         pageTotal: 0
-      },
-      inputs: [
-        {
-          model: "input",
-          placeholder: "卫星名称"
-        }
-      ],
-      selects: []
+      }
     };
   },
   mounted() {
@@ -84,12 +85,29 @@ export default {
     this.getList();
     this.layout.hideLoading();
   },
-  watch: {},
+  watch: {
+    searchObj:{
+      handler(newValue, oldValue) {
+        if(newValue){
+          if (newValue.typeName === ''){
+            this.disabled = true;
+            this.tableData = this.tableConst;
+            this.getListAll();
+          } else{
+            this.disabled = false;
+          }
+        }
+      },
+      immediate:true,
+      deep:true
+    }
+  },
   methods: {
     async getList() {
       this.layout.showLoading();
       const { data } = await scType.getScType();
       this.tableData = data;
+      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
       this.getListAll();
       this.layout.hideLoading();
     },
@@ -186,15 +204,10 @@ export default {
       this.$refs.ruleForm.$refs[formName].clearValidate();
     },
     // 搜索
-    search(val) {
-      const {
-        input: { input }
-      } = val;
-      if (input) {
-        this.getListId(input);
-      } else {
-        this.getList();
-      }
+    searchData(){
+      this.tableData = this.tableConst;
+      this.tableData = filterFun(this.tableData,this.searchObj);
+      this.getListAll();
     },
     // 选中
     handleSelectionChange(val) {
