@@ -19,8 +19,8 @@ export default {
   data() {
     return {
       paginations: {
-        pageSize: 14, // 1页显示多少条
-        pageSizes: [14, 20], // 每页显示多少条
+        pageSize: 16, // 1页显示多少条
+        pageSizes: [16,25], // 每页显示多少条
         layout: "total, sizes, prev, pager, next, jumper" // 翻页属性,
       }
     };

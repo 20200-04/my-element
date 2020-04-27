@@ -5,8 +5,8 @@
       <div>
         <el-select v-model="searchObj.apName" filterable clearable placeholder="请输入应用过程识别名称">
           <el-option
-            v-for="item in transmitObj.satelliteType"
-            :key="item.id"
+            v-for="(item, index) in transmitObj.satelliteType"
+            :key="index"
             :label="item.name"
             :value="item.name"
           ></el-option>
@@ -15,11 +15,6 @@
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
-    <el-scrollbar
-      wrapClass="scrollbar-wrap"
-      :style="{height:scrollHeight}"
-      ref="scrollbarContainer"
-    >
       <el-table :data="tableDataCopy" border style="width:100%">
         <el-table-column type="selection" width="45" align="center"></el-table-column>
         <el-table-column align="center" prop="apId" label="应用过程识别ID"></el-table-column>
@@ -39,7 +34,6 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-scrollbar>
     <!-- 弹出框 -->
     <Dialog
       ref="ruleForm"
@@ -63,6 +57,7 @@
 </template>
 
 <script>
+import filterFun  from '../../../utils/filter.js'
 import scApInfo from "../../../api/modules/scApInfo";
 // 公共搜索栏组件
 import SearchBar from "../../../components/SearchBar/index.vue";
@@ -80,13 +75,12 @@ export default {
   },
   data() {
     return {
-      scrollHeight: "0px",
       satellite_scname: [],
       satellite_apname: [],
 
       paginations: {
         page: 1,
-        limit: 13,
+        limit: 14,
         pageTotal: 0
       },
       title: "",
@@ -130,7 +124,6 @@ export default {
     }
   },
   mounted() {
-    this.scrollHeight = window.innerHeight * 0.8 + "px";
     console.log(this.$route.params);
     if (this.$route.params.obj && this.$route.params.obj.sc_id) {
       console.log(3333);
@@ -161,7 +154,6 @@ export default {
           name: item.scName
         };
       });
-      this.searchObj.scName = res;
       this.satellite_scname = res;
       console.log(res);
     },
@@ -183,6 +175,7 @@ export default {
     },
     async deleteSingle(obj) {
       const { data } = await scApInfo.deletescApInfoId(obj);
+      console.log(data);
     },
     async putscApInfoId(obj) {
       console.log(obj);
@@ -203,10 +196,10 @@ export default {
           apId: "",
           scId: "",
           apName: "",
-          scName: ""
         };
         this.editIndex = -1;
-        setTimeout(() => {
+        console.log(this.form)
+        this.$nextTick(() => {
           this.clearVali("ruleForm");
         });
       } else {
@@ -271,21 +264,9 @@ export default {
         });
       });
     },
-    // 搜索
-    // search(val) {
-    //   const {
-    //     input: { input }
-    //   } = val;
-    //   if (input) {
-    //     this.getListId(input);
-    //   } else {
-    //     this.getList();
-    //   }
-    // },
-    // clearVali(formName) {
-    //   this.$refs.ruleForm.$refs[formName].clearValidate();
-    // },
-
+    clearVali(formName) {
+      this.$refs.ruleForm.$refs[formName].clearValidate();
+    },
     // 搜索
     searchData() {
       this.tableData = this.tableConst;
@@ -323,16 +304,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.el-scrollbar {
-  height: 100%;
-  .scrollbar-wrap {
-    overflow-x: hidden;
-    width: calc(100% + 17px);
-  }
-  // .el-scrollbar__bar{
-
-  // }
-}
 .type {
   &-container {
     margin: 30px;

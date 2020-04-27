@@ -9,7 +9,7 @@
       top="5vh"
     >
       <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
-        <el-form-item label="卫星名称" prop="scid">
+        <el-form-item label="卫星名称" prop="scId">
           <el-select v-model="form.scid" size="mini" placeholder="请选择卫星名称">
             <el-option
               v-for="(item,index) in transmitObj.satelliteType"

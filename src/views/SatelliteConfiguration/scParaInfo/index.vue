@@ -40,10 +40,7 @@
     <el-table :data="tableDataCopy" border style="width: 100%">
       <el-table-column type="selection" width="45" fixed align="center"></el-table-column>
       <el-table-column align="center" prop="paraId" label="参数ID" fixed width="180"></el-table-column>
-      <!-- <el-table-column align="center" prop="scId" label="卫星ID" width="180"></el-table-column>
-      <el-table-column align="center" prop="apId" label="识别过程ID"></el-table-column>-->
       <el-table-column align="center" prop="subsytemName" label="所属分系统"></el-table-column>
-
       <el-table-column align="center" prop="paraName" label="参数名称"></el-table-column>
       <el-table-column align="center" prop="startPos" label="参数起始位置"></el-table-column>
       <el-table-column align="center" prop="length" label="参数长度"></el-table-column>
