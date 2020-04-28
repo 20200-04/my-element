@@ -7,23 +7,28 @@
         <el-button @click="searchData" type="primary" :disabled="disabled">搜索</el-button>
       </div>
     </div>
-      <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange" style="width:100%">
-        <el-table-column type="selection" width="45" align="center"></el-table-column>
-        <el-table-column align="center" prop="subsytemTypeId" label="ID" width="180"></el-table-column>
-        <el-table-column align="center" prop="subsytemName" label="分系统名称" width="180"></el-table-column>
-        <el-table-column align="center" prop="updateTime" label="修改时间">
-          <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" prop="createTime" label="创建时间">
-          <template slot-scope="scope">{{scope.row.createTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" label="操作" width="250">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
-            <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+    <el-table
+      :data="tableDataCopy"
+      border
+      @selection-change="handleSelectionChange"
+      style="width:100%"
+    >
+      <el-table-column type="selection" width="45" align="center"></el-table-column>
+      <el-table-column align="center" prop="subsytemTypeId" label="ID" width="180"></el-table-column>
+      <el-table-column align="center" prop="subsytemName" label="分系统名称" width="180"></el-table-column>
+      <el-table-column align="center" prop="updateTime" label="修改时间">
+        <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" prop="createTime" label="创建时间">
+        <template slot-scope="scope">{{scope.row.createTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="250">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
+          <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <!-- 分页 -->
     <div class="footer">
       <pagination
@@ -48,7 +53,7 @@ import scSubsytemType from "../../../api/modules/scSubsytemType";
 // 公共搜索栏组件
 import SearchBar from "../../../components/SearchBar/index.vue";
 import Dialog from "./components/Dialog";
-import filterFun from '../../../utils/filter'
+import filterFun from "../../../utils/filter";
 //分页
 import pagination from "../../../components/pagination";
 import { log } from "util";
@@ -66,10 +71,10 @@ export default {
       form: {},
       tableData: [],
       tableDataCopy: [],
-      tableConst:[],
+      tableConst: [],
       multipleSelection: [],
-      searchObj:{
-        subsytemName:''
+      searchObj: {
+        subsytemName: ""
       },
       paginations: {
         page: 1,
@@ -140,7 +145,7 @@ export default {
           subsytemName: ""
         };
         this.editIndex = -1;
-        this.$nextTick(() => {
+        this.$nextTick(() => {
           this.clearVali("ruleForm");
         });
       } else {
@@ -203,11 +208,11 @@ export default {
       this.$refs.ruleForm.$refs[formName].clearValidate();
     },
     // 搜索
-    searchData(){
+    searchData() {
       this.tableData = this.tableConst;
-      this.tableData = filterFun(this.tableData,this.searchObj);
+      this.tableData = filterFun(this.tableData, this.searchObj);
       this.getListAll();
-      },
+    },
     // 选中
     handleSelectionChange(val) {
       this.multipleSelection = val;
@@ -260,7 +265,7 @@ export default {
 }
 .footer {
   width: 100%;
-  height: 45px;
+  height: 60px;
   display: flex;
   align-items: center;
   background: #fff;

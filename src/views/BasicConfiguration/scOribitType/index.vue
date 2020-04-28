@@ -7,23 +7,28 @@
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
-      <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange"  style="width: 100%">
-        <el-table-column type="selection" width="45" align="center"></el-table-column>
-        <el-table-column align="center" prop="orbitId" label="ID" width="180"></el-table-column>
-        <el-table-column align="center" prop="orbitType" label="轨道类型" width="180"></el-table-column>
-        <el-table-column align="center" prop="updateTime" label="修改时间">
-          <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" prop="createTime" label="创建时间">
-          <template slot-scope="scope">{{scope.row.createTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" label="操作" width="250">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
-            <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+    <el-table
+      :data="tableDataCopy"
+      border
+      @selection-change="handleSelectionChange"
+      style="width: 100%"
+    >
+      <el-table-column type="selection" width="45" align="center"></el-table-column>
+      <el-table-column align="center" prop="orbitId" label="ID" width="180"></el-table-column>
+      <el-table-column align="center" prop="orbitType" label="轨道类型" width="180"></el-table-column>
+      <el-table-column align="center" prop="updateTime" label="修改时间">
+        <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" prop="createTime" label="创建时间">
+        <template slot-scope="scope">{{scope.row.createTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="250">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
+          <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <!-- 弹出框 -->
     <Dialog
       ref="ruleForm"
@@ -261,7 +266,7 @@ export default {
 }
 .footer {
   width: 100%;
-  height: 45px;
+  height: 60px;
   display: flex;
   align-items: center;
   background: #fff;

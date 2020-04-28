@@ -1,30 +1,34 @@
 <template>
   <section class="app-main">
-    <transition name="fade-transform" mode="out-in">
-      <el-scrollbar wrapClass="scrollbar-wrap" :style="{height:scrollHeight}"  ref="scrollbarContainer">
-      <router-view :key="key" />
-      </el-scrollbar>
-    </transition>
+    <el-scrollbar
+      wrapClass="scrollbar-wrap"
+      :style="{height:scrollHeight}"
+      ref="scrollbarContainer"
+    >
+      <transition name="fade-transform" mode="out-in">
+        <router-view :key="key" />
+      </transition>
+    </el-scrollbar>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'AppMain',
-  data(){
-    return{
-      scrollHeight:'0px',
-    }
+  name: "AppMain",
+  data() {
+    return {
+      scrollHeight: "0px"
+    };
   },
   computed: {
     key() {
-      return this.$route.path
+      return this.$route.path;
     }
   },
   mounted() {
-    this.scrollHeight = window.innerHeight * 0.9 + 'px';
+    this.scrollHeight = window.innerHeight * 0.9 + "px";
   }
-}
+};
 </script>
 
 <style scoped>
@@ -35,7 +39,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 </style>
@@ -47,14 +51,11 @@ export default {
     padding-right: 15px;
   }
 }
-.el-scrollbar{
+.el-scrollbar {
   height: 100%;
-  .scrollbar-wrap{
+  .scrollbar-wrap {
     overflow-x: hidden;
     width: calc(100% + 17px);
-  }
-  .el-scrollbar__bar{
-
   }
 }
 </style>

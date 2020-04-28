@@ -15,27 +15,32 @@
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
-      <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange" style="width: 100%">
-        <el-table-column type="selection" width="45" align="center"></el-table-column>
-        <el-table-column align="center" prop="scId" label="卫星ID" width="65"></el-table-column>
-        <el-table-column align="center" prop="commandId" label="指令ID" width="65"></el-table-column>
-        <el-table-column align="center" prop="scName" label="卫星名称" width="100"></el-table-column>
-        <el-table-column align="center" prop="commandCode" label="指令编号" width="100"></el-table-column>
-        <el-table-column align="center" prop="commandName" label="指令名称" width="150"></el-table-column>
-        <el-table-column align="center" prop="commandDescription" label="指令发送" width="150"></el-table-column>
-        <el-table-column align="center" prop="commandData" label="指令数据" width="150"></el-table-column>
-        <el-table-column align="center" prop="updateTime" label="修改时间">
-          <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" prop="createTime" label="创建时间">
-          <template slot-scope="scope">{{scope.row.createTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" label="操作" width="250">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
-            <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
+    <el-table
+      :data="tableDataCopy"
+      border
+      @selection-change="handleSelectionChange"
+      style="width: 100%"
+    >
+      <el-table-column type="selection" width="45" align="center"></el-table-column>
+      <el-table-column align="center" prop="scId" label="卫星ID" width="65"></el-table-column>
+      <el-table-column align="center" prop="commandId" label="指令ID" width="65"></el-table-column>
+      <el-table-column align="center" prop="scName" label="卫星名称" width="100"></el-table-column>
+      <el-table-column align="center" prop="commandCode" label="指令编号" width="100"></el-table-column>
+      <el-table-column align="center" prop="commandName" label="指令名称" width="150"></el-table-column>
+      <el-table-column align="center" prop="commandDescription" label="指令发送" width="150"></el-table-column>
+      <el-table-column align="center" prop="commandData" label="指令数据" width="150"></el-table-column>
+      <el-table-column align="center" prop="updateTime" label="修改时间">
+        <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" prop="createTime" label="创建时间">
+        <template slot-scope="scope">{{scope.row.createTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="250">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
+          <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <!-- 分页 -->
     <div class="footer">
@@ -122,7 +127,7 @@ export default {
       this.getListId(this.$route.params.obj.scId);
       console.log(this.$route.params.obj.scId);
     } else {
-      this.getList()
+      this.getList();
     }
     this.layout.hideLoading();
   },
@@ -176,7 +181,7 @@ export default {
       if (!e) {
         this.title = "添加指令";
         this.form = {
-          scId:"",
+          scId: "",
           commandId: "",
           commandCode: "",
           commandName: "",
@@ -185,7 +190,7 @@ export default {
           scName: ""
         };
         this.editIndex = -1;
-        this.$nextTick(() => {
+        this.$nextTick(() => {
           this.clearVali("ruleForm");
         });
       } else {
@@ -239,7 +244,7 @@ export default {
         confirmButtonText: "删除11",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(async() => {
+      }).then(async () => {
         await this.deleteSingle(item.commandId);
         this.getList();
         this.$message({
@@ -293,7 +298,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .type {
+.type {
   &-container {
     margin: 30px;
   }
@@ -309,7 +314,7 @@ export default {
 }
 .footer {
   width: 100%;
-  height: 45px;
+  height: 60px;
   display: flex;
   align-items: center;
   background: #fff;

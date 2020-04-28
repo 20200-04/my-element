@@ -5,7 +5,9 @@
 import {
   getToken,
   setToken,
-  removeToken
+  removeToken,
+  getScId,
+  setScId
 } from '@/utils/auth'
 import {
   resetRouter
@@ -14,6 +16,7 @@ import {
 const getDefaultState = () => {
   return {
     token: getToken(),
+    scid: getScId(),
     name: '',
     avatar: ''
   }
@@ -27,6 +30,10 @@ const mutations = {
   },
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_SCID: (state, scid) => {
+    state.scid = scid
+    // console.log(state, scid);
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -49,10 +56,13 @@ const actions = {
       // {"code":20000,"data":{"token":"admin-token"}}
 
       const data = {
-        "token": "admin-token"
+        "token": "admin-token",
+        "scid": 1
       }
       commit('SET_TOKEN', data.token)
+      commit('SET_SCID', data.scid)
       setToken(data.token)
+      setScId(data.scid)
       resolve()
 
 

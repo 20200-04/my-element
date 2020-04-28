@@ -15,25 +15,30 @@
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
-      <el-table :data="tableDataCopy" border @selection-change="handleSelectionChange" style="width: 100%">
-        <el-table-column type="selection" width="45" align="center"></el-table-column>
-        <el-table-column align="center" prop="scid" label="卫星ID" width="65"></el-table-column>
-        <el-table-column align="center" prop="scName" label="卫星名称" width="100"></el-table-column>
-        <el-table-column align="center" prop="subsytemId" label="分系统ID" width="65"></el-table-column>
-        <el-table-column align="center" prop="subsytemTypeId" label="分系统类型ID" width="100"></el-table-column>
-        <el-table-column align="center" prop="subsytemName" label="分系统名称" width="150"></el-table-column>
-        <el-table-column align="center" prop="updateTime" label="修改时间">
-          <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" prop="createTime" label="创建时间">
-          <template slot-scope="scope">{{scope.row.createTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" label="操作" width="250">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
-            <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
+    <el-table
+      :data="tableDataCopy"
+      border
+      @selection-change="handleSelectionChange"
+      style="width: 100%"
+    >
+      <el-table-column type="selection" width="45" align="center"></el-table-column>
+      <el-table-column align="center" prop="scid" label="卫星ID" width="65"></el-table-column>
+      <el-table-column align="center" prop="scName" label="卫星名称" width="100"></el-table-column>
+      <el-table-column align="center" prop="subsytemId" label="分系统ID" width="65"></el-table-column>
+      <el-table-column align="center" prop="subsytemTypeId" label="分系统类型ID" width="100"></el-table-column>
+      <el-table-column align="center" prop="subsytemName" label="分系统名称" width="150"></el-table-column>
+      <el-table-column align="center" prop="updateTime" label="修改时间">
+        <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" prop="createTime" label="创建时间">
+        <template slot-scope="scope">{{scope.row.createTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="250">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
+          <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <!-- 分页 -->
     <div class="footer">
@@ -126,7 +131,7 @@ export default {
       const { data } = await scSubSytem.getScSubSytem();
       this.tableData = data;
       this.getsatelliteType();
-      this.getscSubsystemType()
+      this.getscSubsystemType();
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
       this.getListAll();
       this.layout.hideLoading();
@@ -176,14 +181,14 @@ export default {
       if (!e) {
         this.title = "添加分系统配置";
         this.form = {
-          scid:"",
+          scid: "",
           subsytemId: "",
           subsytemTypeId: "",
           subsytemName: "",
           scName: ""
         };
         this.editIndex = -1;
-        this.$nextTick(() => {
+        this.$nextTick(() => {
           this.clearVali("ruleForm");
         });
       } else {
@@ -235,7 +240,7 @@ export default {
         confirmButtonText: "删除11",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(async() => {
+      }).then(async () => {
         await this.deleteSingle(item.subsytemId);
         this.getList();
         this.$message({
@@ -287,7 +292,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .type {
+.type {
   &-container {
     margin: 30px;
   }
@@ -303,7 +308,7 @@ export default {
 }
 .footer {
   width: 100%;
-  height: 45px;
+  height: 60px;
   display: flex;
   align-items: center;
   background: #fff;
