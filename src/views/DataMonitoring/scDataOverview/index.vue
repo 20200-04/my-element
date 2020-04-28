@@ -87,12 +87,12 @@ export default {
       searchObj: {
         scName: "",
         scNames: [
-          { name: "卫星测试", id: 0 },
           { name: "卫星测试1", id: 1 },
           { name: "卫星测试2", id: 2 },
           { name: "卫星测试3", id: 3 },
           { name: "卫星测试4", id: 4 },
-          { name: "卫星测试5", id: 5 }
+          { name: "卫星测试5", id: 5 },
+          { name: "卫星测试6", id: 6 }
         ]
       },
       // ---基础信息
@@ -188,7 +188,7 @@ export default {
           createTime: "2020-04-21 17:01:21" // 执行时间
         });
       }
-      for (let a = 0; a < 4; a++) {
+      for (let a = 0; a < 5; a++) {
         this.RealTimeStatus.push({
           scName: "卫星" + a,
           scCode: "卫星代号" + a,
@@ -215,13 +215,15 @@ export default {
     initScId() {
       //改变scid的值
       const { scId } = this.$route.params.obj || "";
+      console.log(scId);
+
       this.searchObj.scName = scId;
       if (scId) {
         this.$store.dispatch("sc/ChangeScId", scId);
       } else {
         this.searchObj.scName = Number(getScId());
       }
-      console.log(this.$store.state.sc.scid);
+      // console.log(this.$store.state.sc.scid);
     },
     currentScNameId(scId) {
       this.$store.dispatch("sc/ChangeScId", scId);

@@ -8,15 +8,32 @@
       width="30%"
       top="5vh"
     >
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
+      <el-form
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        label-position="right"
+        label-width="200px"
+        class="form-class"
+      >
         <el-form-item label="方法" prop="funcName">
-          <el-input v-model="form.funcName" placeholder="方法" size="mini" style="width: 40%;"></el-input>
+          <el-input v-model="form.funcName" placeholder="方法" size="mini" style="width: 45%;"></el-input>
         </el-form-item>
         <el-form-item label="方法描述" prop="funcDescription">
-          <el-input v-model="form.funcDescription" placeholder="方法描述" size="mini" style="width: 35%;"></el-input>
+          <el-input
+            v-model="form.funcDescription"
+            placeholder="方法描述"
+            size="mini"
+            style="width: 45%;"
+          ></el-input>
         </el-form-item>
         <el-form-item label="参数描述" prop="paraDescription">
-          <el-input v-model="form.paraDescription" placeholder="参数描述" size="mini" style="width: 35%;"></el-input>
+          <el-input
+            v-model="form.paraDescription"
+            placeholder="参数描述"
+            size="mini"
+            style="width: 45%;"
+          ></el-input>
         </el-form-item>
       </el-form>
 

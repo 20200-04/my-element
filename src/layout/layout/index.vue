@@ -8,7 +8,7 @@
         <!-- 面包屑导航 -->
         <navbar />
       </div>
-      <app-main v-loading="loading"/>
+      <app-main v-loading="loading" />
     </div>
   </div>
 </template>
@@ -19,15 +19,15 @@ import ResizeMixin from "./mixin/ResizeHandler";
 
 export default {
   name: "Layout",
-    provide() {
+  provide() {
     return {
       layout: this
     };
   },
-  data () {
+  data() {
     return {
-    loading:false  
-    }
+      loading: false
+    };
   },
   components: {
     Navbar,

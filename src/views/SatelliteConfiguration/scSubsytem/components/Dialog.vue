@@ -8,7 +8,14 @@
       width="30%"
       top="5vh"
     >
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
+      <el-form
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        label-position="right"
+        label-width="200px"
+        class="form-class"
+      >
         <el-form-item label="卫星名称" prop="scId">
           <el-select v-model="form.scid" size="mini" placeholder="请选择卫星名称">
             <el-option
@@ -61,14 +68,12 @@ export default {
   data() {
     return {
       rules: {
-        scid: [
-          { required: true, message: "请选择卫星", trigger: "change" }
-        ],
+        scId: [{ required: true, message: "请选择卫星", trigger: "change" }],
         subsytemTypeId: [
           { required: true, message: "分系统配置名称", trigger: "change" }
         ]
       }
-    }
+    };
   },
   methods: {
     modalClose() {

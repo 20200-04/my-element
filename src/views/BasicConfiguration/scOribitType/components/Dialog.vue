@@ -8,9 +8,16 @@
       width="30%"
       top="5vh"
     >
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
+      <el-form
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        label-position="right"
+        label-width="200px"
+        class="form-class"
+      >
         <el-form-item label="卫星轨道类型" prop="orbitType">
-          <el-input v-model="form.orbitType" placeholder="卫星轨道类型" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.orbitType" placeholder="卫星轨道类型" size="mini" style="width: 45%;"></el-input>
         </el-form-item>
       </el-form>
 

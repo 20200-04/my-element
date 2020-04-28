@@ -8,12 +8,19 @@
       width="30%"
       top="5vh"
     >
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
+      <el-form
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        label-position="right"
+        label-width="200px"
+        class="form-class"
+      >
         <el-form-item label="卫星类型" prop="typeName">
-          <el-input v-model="form.typeName" placeholder="卫星类型" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.typeName" placeholder="卫星类型" size="mini" style="width: 45%;"></el-input>
         </el-form-item>
         <el-form-item label="卫星供应商" prop="producer">
-          <el-input v-model="form.producer" placeholder="卫星供应商" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.producer" placeholder="卫星供应商" size="mini" style="width: 45%;"></el-input>
         </el-form-item>
       </el-form>
 

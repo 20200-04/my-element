@@ -9,7 +9,14 @@
       top="5vh"
     >
       <!-- 表单内容 -->
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
+      <el-form
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        label-position="right"
+        label-width="200px"
+        class="form-class"
+      >
         <el-form-item label="卫星类型" prop="scType">
           <el-select v-model="form.scType" size="mini" placeholder="请选择卫星类型">
             <el-option

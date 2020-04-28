@@ -8,26 +8,40 @@
       width="30%"
       top="5vh"
     >
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
-       
-        <el-form-item label="卫星名称" prop="scId" style="margin-left:4rem">
-         
-          <el-select v-model="form.scId" size="mini" placeholder="请输入卫星名称" :disabled="type === 'edit'">
+      <el-form
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        label-position="right"
+        label-width="200px"
+        class="form-class"
+      >
+        <el-form-item label="卫星名称" prop="scId">
+          <el-select
+            v-model="form.scId"
+            size="mini"
+            placeholder="请输入卫星名称"
+            :disabled="type === 'edit'"
+          >
             <el-option
-             v-for="(item,index) in satellite_scname"
+              v-for="(item,index) in satellite_scname"
               :key="index"
               :label="item.name"
-              :value="item.id">
-            </el-option>
+              :value="item.id"
+            ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="应用识别过程名称" prop="apName">
           <el-input size="mini" v-model="form.apName" placeholder="请输入应用识别过程名称" style="width:43%"></el-input>
-         
         </el-form-item>
         <el-form-item label="应用识别过程id" prop="apId">
-          <el-input size="mini" v-model="form.apId" placeholder="请输入应用识别过程名称" :disabled="type === 'edit'" style="width:43%"></el-input>
-          
+          <el-input
+            size="mini"
+            v-model="form.apId"
+            placeholder="请输入应用识别过程名称"
+            :disabled="type === 'edit'"
+            style="width:43%"
+          ></el-input>
         </el-form-item>
       </el-form>
 
@@ -54,29 +68,32 @@ export default {
     form: {
       type: Object
     },
-     satellite_scname: {
+    satellite_scname: {
       type: Array
-    },
-    
+    }
   },
   mounted() {
     console.log(this.form);
     console.log(this.satellite_scname);
-   
+
     console.log(this.visible);
   },
   data() {
     return {
       rules: {
-       scId: [
+        scId: [
           { required: true, message: "请选择卫星名称", trigger: "change" }
-        ] ,
-       apName: [
-          { required: true, message: "请选择应用识别过程名称", trigger: "change" }
-        ] ,
-        apId:  [
+        ],
+        apName: [
+          {
+            required: true,
+            message: "请选择应用识别过程名称",
+            trigger: "change"
+          }
+        ],
+        apId: [
           { required: true, message: "请填写应用识别过程id", trigger: "change" }
-        ] , 
+        ]
       }
     };
   },

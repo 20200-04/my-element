@@ -33,7 +33,7 @@ const dataMonitoringFirst =
     {
       path: 'scTelemeteringPara',
       name: 'scTelemeteringPara',
-      component: () => import('@/views/DataMonitoring/scTelemeteringPara/index.vue'),
+      component: () => import('@/views/DataMonitoring/scTelemeteringPara/index'),
       meta: {
         title: '遥测参数',
         icon: 'scTelemeteringPara'

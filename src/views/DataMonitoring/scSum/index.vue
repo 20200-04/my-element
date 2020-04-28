@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     init() {
-      for (var i = 0; i < 6; i++) {
+      for (var i = 1; i < 7; i++) {
         this.scData.push({
           scId: i,
           scName: "卫星" + i,

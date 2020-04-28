@@ -8,9 +8,16 @@
       width="30%"
       top="5vh"
     >
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
+      <el-form
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        label-position="right"
+        label-width="200px"
+        class="form-class"
+      >
         <el-form-item label="分系统名称" prop="subsytemName">
-          <el-input v-model="form.subsytemName" placeholder="分系统名称" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.subsytemName" placeholder="分系统名称" size="mini" style="width: 45%;"></el-input>
         </el-form-item>
       </el-form>
 
@@ -43,10 +50,9 @@ export default {
   data() {
     return {
       rules: {
-       subsytemName: [
+        subsytemName: [
           { required: true, message: "请选择分系统名称", trigger: "change" }
-        ],
-       
+        ]
       }
     };
   },

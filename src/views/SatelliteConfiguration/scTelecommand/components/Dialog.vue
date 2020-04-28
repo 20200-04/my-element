@@ -8,7 +8,14 @@
       width="30%"
       top="5vh"
     >
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
+      <el-form
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        label-position="right"
+        label-width="200px"
+        class="form-class"
+      >
         <el-form-item label="卫星ID" prop="scId">
           <el-select v-model="form.scId" size="mini" placeholder="请选择卫星名称">
             <el-option
@@ -26,7 +33,12 @@
           <el-input v-model="form.commandName" placeholder="指令名称" size="mini" style="width: 40%;"></el-input>
         </el-form-item>
         <el-form-item label="指令发送" prop="commandDescription">
-          <el-input v-model="form.commandDescription" placeholder="指令发送" size="mini" style="width: 35%;"></el-input>
+          <el-input
+            v-model="form.commandDescription"
+            placeholder="指令发送"
+            size="mini"
+            style="width: 35%;"
+          ></el-input>
         </el-form-item>
         <el-form-item label="指令数据" prop="commandData">
           <el-input v-model="form.commandData" placeholder="指令数据" size="mini" style="width: 35%;"></el-input>
@@ -64,9 +76,7 @@ export default {
   data() {
     return {
       rules: {
-        scId: [
-          { required: true, message: "请选择卫星", trigger: "change" }
-        ],
+        scId: [{ required: true, message: "请选择卫星", trigger: "change" }],
         commandCode: [
           { required: true, message: "请选择指令编号", trigger: "change" }
         ],
@@ -80,7 +90,7 @@ export default {
           { required: true, message: "请选择指令数据", trigger: "change" }
         ]
       }
-    }
+    };
   },
   methods: {
     modalClose() {

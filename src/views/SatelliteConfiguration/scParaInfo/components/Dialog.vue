@@ -9,7 +9,14 @@
       top="5vh"
     >
       <!-- 表单内容 -->
-      <el-form ref="ruleForm" :model="form" :rules="rules" label-width="100" class="form-class">
+      <el-form
+        ref="ruleForm"
+        label-position="right"
+        label-width="200px"
+        :model="form"
+        :rules="rules"
+        class="form-class"
+      >
         <el-form-item label="卫星名称" prop="scId">
           <el-select
             v-model="form.scId"
