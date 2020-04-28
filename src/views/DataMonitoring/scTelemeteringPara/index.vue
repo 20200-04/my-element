@@ -73,14 +73,6 @@
       }
     },
     methods: {
-      pageList() {
-        // 发请求拿到数据并暂存全部数据,方便之后操作
-        this.data = this.objList;
-        // 发请求拿到数据并暂存全部数据,方便之后操作
-        console.log(this.data )
-
-        this.getList()
-      },
       // 处理数据
       getList() {
         // es6过滤得到满足搜索条件的展示数据list
