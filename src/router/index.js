@@ -50,7 +50,7 @@ export const constantRoutes = [{
   {
     path: '/dataMonitoring',
     component: Layout,
-    // redirect: '/dataMonitoring/scSum',
+    redirect: '/dataMonitoring/scSum',
     meta: {
       title: '数据监视',
       icon: 'dataMonitoring'
