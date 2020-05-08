@@ -17,7 +17,7 @@
         class="form-class"
       >
         <el-form-item label="分系统名称" prop="subsytemName">
-          <el-input v-model="form.subsytemName" placeholder="分系统名称" size="mini" style="width: 45%;"></el-input>
+          <el-input v-model="form.subsytemName" placeholder="分系统名称" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
       </el-form>
 

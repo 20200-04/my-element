@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <div class="fun-head">
-      <el-button size="mini" type="success" @click="openModel(false)">添加卫星</el-button>
+      <el-button size="mini" type="success" @click="openModel(false)">添加遥测参数配置</el-button>
       <div>
         <el-select
           v-model="searchObj.scId"
@@ -418,7 +418,8 @@ export default {
   align-items: center;
   background: #fff;
   position: fixed;
-  left: 200px;
+  left: 0px;
+  padding-left: 65%;
   bottom: 0;
   right: 0;
   z-index: 100;

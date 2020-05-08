@@ -17,7 +17,7 @@
         class="form-class"
       >
         <el-form-item label="卫星轨道类型" prop="orbitType">
-          <el-input v-model="form.orbitType" placeholder="卫星轨道类型" size="mini" style="width: 45%;"></el-input>
+          <el-input v-model="form.orbitType" placeholder="卫星轨道类型" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
       </el-form>
 

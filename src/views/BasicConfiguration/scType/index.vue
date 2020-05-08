@@ -3,7 +3,7 @@
     <div class="fun-head">
       <el-button size="mini" type="success" @click="openModel(false)">添加卫星类型</el-button>
       <div>
-        <el-input v-model="searchObj.typeName" style="width:180px" placecholder="请输入卫星类型名称"></el-input>
+        <el-input v-model="searchObj.typeName" style="width:180px" placeholder="请输入卫星类型名称"></el-input>
         <el-button type="primary" @click="searchData" :disabled="disabled">搜索</el-button>
       </div>
     </div>
@@ -15,8 +15,8 @@
     >
       <el-table-column type="selection" width="45" align="center"></el-table-column>
       <el-table-column align="center" prop="typeId" label="ID" width="180"></el-table-column>
-      <el-table-column align="center" prop="typeName" label="卫星类型" width="180"></el-table-column>
-      <el-table-column align="center" prop="producer" label="卫星供应商" width="180"></el-table-column>
+      <el-table-column align="center" prop="typeName" label="卫星类型"></el-table-column>
+      <el-table-column align="center" prop="producer" label="卫星供应商"></el-table-column>
       <el-table-column align="center" prop="updateTime" label="修改时间">
         <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
       </el-table-column>

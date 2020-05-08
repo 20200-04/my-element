@@ -24,6 +24,7 @@
             placeholder="请选择卫星名称"
             @visible-change="isTrue"
             @change="currentScId"
+            style="width: 72%;"
           >
             <el-option
               v-for="(item,index) in transmitObj.satelliteName"
@@ -34,7 +35,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="卫星分系统类型" prop="subsystemId">
-          <el-select v-model="form.subsystemId" size="mini" placeholder="请选择卫星分系统类型">
+          <el-select v-model="form.subsystemId" size="mini" placeholder="请选择卫星分系统类型" style="width: 72%;">
             <el-option
               v-for="(item,index) in transmitObj.satelliteSubsystemType"
               :key="index"
@@ -44,7 +45,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="应用识别过程" prop="apId">
-          <el-select v-model="form.apId" size="mini" placeholder="请选择应用识别过程">
+          <el-select v-model="form.apId" size="mini" placeholder="请选择应用识别过程" style="width: 72%;">
             <el-option
               v-for="(item,index) in transmitObj.satelliteScApInfo"
               :key="index"
@@ -54,7 +55,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="方法名称" prop="funcId">
-          <el-select v-model="form.funcId" size="mini" placeholder="请选择指方法称">
+          <el-select v-model="form.funcId" size="mini" placeholder="请选择指方法称" style="width: 72%;">
             <el-option
               v-for="(item,index) in transmitObj.satelliteInstruct"
               :key="index"
@@ -64,35 +65,35 @@
           </el-select>
         </el-form-item>
         <el-form-item label="卫星遥测参数名称" prop="paraName">
-          <el-input v-model="form.paraName" placeholder="卫星遥测参数名称" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.paraName" placeholder="卫星遥测参数名称" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="处理方法参数" prop="funcPara">
-          <el-input v-model="form.funcPara" placeholder="处理方法参数" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.funcPara" placeholder="处理方法参数" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="参数长度" prop="length">
-          <el-input v-model="form.length" placeholder="参数长度" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.length" placeholder="参数长度" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="参数起始位置" prop="startPos">
-          <el-input v-model="form.startPos" placeholder="参数长度" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.startPos" placeholder="参数长度" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <!-- 一级阈值上限   一级阈值下限 二级阈值上限 二级阈值下限 三级阈值上限 三级阈值下限 -->
         <el-form-item label="一级阈值上限" prop="thresholdU1">
-          <el-input v-model="form.thresholdU1" placeholder="一级阈值上限" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.thresholdU1" placeholder="一级阈值上限" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="一级阈值下限" prop="thresholdL1">
-          <el-input v-model="form.thresholdL1" placeholder="一级阈值下限" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.thresholdL1" placeholder="一级阈值下限" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="二级阈值上限" prop="thresholdU2">
-          <el-input v-model="form.thresholdU2" placeholder="二级阈值上限" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.thresholdU2" placeholder="二级阈值上限" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="二级阈值下限" prop="thresholdL2">
-          <el-input v-model="form.thresholdL2" placeholder="二级阈值下限" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.thresholdL2" placeholder="二级阈值下限" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="三级阈值上限" prop="thresholdU3">
-          <el-input v-model="form.thresholdU3" placeholder="三级阈值上限" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.thresholdU3" placeholder="三级阈值上限" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="三级阈值下限" prop="thresholdL3">
-          <el-input v-model="form.thresholdL3" placeholder="三级阈值下限" size="mini" style="width: 35%;"></el-input>
+          <el-input v-model="form.thresholdL3" placeholder="三级阈值下限" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
       </el-form>
 

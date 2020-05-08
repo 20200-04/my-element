@@ -1,7 +1,7 @@
 <template>
   <div class="type-container">
     <div class="fun-head">
-      <el-button size="mini" type="success" @click="openModel(false)">添加</el-button>
+      <el-button size="mini" type="success" @click="openModel(false)">添加应用识别过程</el-button>
       <div>
         <el-select v-model="searchObj.apName" filterable clearable placeholder="请输入应用过程识别名称">
           <el-option
@@ -15,25 +15,25 @@
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
-      <el-table :data="tableDataCopy" border style="width:100%">
-        <el-table-column type="selection" width="45" align="center"></el-table-column>
-        <el-table-column align="center" prop="apId" label="应用过程识别ID"></el-table-column>
-        <el-table-column align="center" prop="scId" label="卫星ID"></el-table-column>
-        <el-table-column align="center" prop="apName" label="应用过程识别名称"></el-table-column>
-        <el-table-column align="center" prop="scName" label="卫星名称"></el-table-column>
-        <el-table-column align="center" prop="updateTime" label="修改时间">
-          <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" prop="createTime" label="创建时间">
-          <template slot-scope="scope">{{scope.row.createTime | time}}</template>
-        </el-table-column>
-        <el-table-column align="center" label="操作" width="250">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
-            <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+    <el-table :data="tableDataCopy" border style="width:100%">
+      <el-table-column type="selection" width="45" align="center"></el-table-column>
+      <el-table-column align="center" prop="apId" label="应用过程识别ID"></el-table-column>
+      <el-table-column align="center" prop="scId" label="卫星ID"></el-table-column>
+      <el-table-column align="center" prop="apName" label="应用过程识别名称"></el-table-column>
+      <el-table-column align="center" prop="scName" label="卫星名称"></el-table-column>
+      <el-table-column align="center" prop="updateTime" label="修改时间">
+        <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" prop="createTime" label="创建时间">
+        <template slot-scope="scope">{{scope.row.createTime | time}}</template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="250">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
+          <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <!-- 弹出框 -->
     <Dialog
       ref="ruleForm"
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import filterFun  from '../../../utils/filter.js'
+import filterFun from "../../../utils/filter.js";
 import scApInfo from "../../../api/modules/scApInfo";
 // 公共搜索栏组件
 import SearchBar from "../../../components/SearchBar/index.vue";
@@ -123,15 +123,15 @@ export default {
       deep: true
     }
   },
-  mounted() {
-    console.log(this.$route.params);
-    if (this.$route.params.obj && this.$route.params.obj.sc_id) {
-      console.log(3333);
-      this.getListId(this.$route.params.obj.sc_id);
-    } else {
-      this.getList();
-    }
-  },
+  // mounted() {
+  //   console.log(this.$route.params);
+  //   if (this.$route.params.obj && this.$route.params.obj.sc_id) {
+  //     console.log(3333);
+  //     this.getListId(this.$route.params.obj.sc_id);
+  //   } else {
+  //     this.getList();
+  //   }
+  // },
 
   methods: {
     async getList() {
@@ -195,10 +195,10 @@ export default {
         this.form = {
           apId: "",
           scId: "",
-          apName: "",
+          apName: ""
         };
         this.editIndex = -1;
-        console.log(this.form)
+        console.log(this.form);
         this.$nextTick(() => {
           this.clearVali("ruleForm");
         });

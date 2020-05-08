@@ -17,14 +17,14 @@
         class="form-class"
       >
         <el-form-item label="方法" prop="funcName">
-          <el-input v-model="form.funcName" placeholder="方法" size="mini" style="width: 45%;"></el-input>
+          <el-input v-model="form.funcName" placeholder="方法" size="mini" style="width: 72%;"></el-input>
         </el-form-item>
         <el-form-item label="方法描述" prop="funcDescription">
           <el-input
             v-model="form.funcDescription"
             placeholder="方法描述"
             size="mini"
-            style="width: 45%;"
+            style="width: 72%;"
           ></el-input>
         </el-form-item>
         <el-form-item label="参数描述" prop="paraDescription">
@@ -32,7 +32,7 @@
             v-model="form.paraDescription"
             placeholder="参数描述"
             size="mini"
-            style="width: 45%;"
+            style="width: 72%;"
           ></el-input>
         </el-form-item>
       </el-form>

@@ -47,7 +47,16 @@ export const constantRoutes = [{
   //   redirect: '/dashboard',
   //   children: dashboardFirst
   // },
-
+  {
+    path: '/dataMonitoring',
+    component: Layout,
+    // redirect: '/dataMonitoring/scSum',
+    meta: {
+      title: '数据监视',
+      icon: 'dataMonitoring'
+    },
+    children: dataMonitoringFirst
+  },
   {
     path: '/satelliteConfiguration',
     component: Layout,
@@ -69,16 +78,7 @@ export const constantRoutes = [{
     },
     children: basicConfigurationFirst
   },
-  {
-    path: '/dataMonitoring',
-    component: Layout,
-    redirect: '/dataMonitoring/scSum',
-    meta: {
-      title: '数据监视',
-      icon: 'dataMonitoring'
-    },
-    children: dataMonitoringFirst
-  },
+
 
   // {
   //   path: '/nested',

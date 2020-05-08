@@ -16,6 +16,11 @@
         <el-table-column prop="scCode" label="卫星代号" align="center" sortable></el-table-column>
         <el-table-column prop="scName" label="卫星名称" sortable align="center"></el-table-column>
         <el-table-column prop="state" label="源码" align="center"></el-table-column>
+        <el-table-column align="center" label="操作" width="100">
+          <template slot-scope="scope">
+            <el-button type="warning" size="mini" @click="goItem(scope.row)">go</el-button>
+          </template>
+        </el-table-column>
       </el-table-column>
     </el-table>
   </div>
@@ -56,6 +61,9 @@ export default {
       deep: true
     }
   },
+  mounted() {
+    this.initScId();
+  },
   created() {
     this.pageList();
   },
@@ -82,9 +90,22 @@ export default {
         item.scCode.includes(this.searchObj.scCode)
       );
     },
+    initScId() {
+      //改变scid的值
+      console.log(this.$route.params);
+      // console.log(this.$store.state.sc.scid);
+    },
     //搜索过滤数据
     search() {
       this.getList();
+    },
+    goItem(val) {
+      this.$router.push({
+        name: "scTelemeteringPara",
+        params: {
+          obj: val
+        }
+      });
     }
   }
 };
