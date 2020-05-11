@@ -201,7 +201,6 @@ export default {
     //恢复数据
     dataAll() {
       this.getList();
-      this.searchObj.apName = "";
       this.$message({
         message: "全部识别过程已开启",
         type: "success"

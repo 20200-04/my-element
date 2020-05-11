@@ -305,7 +305,6 @@ export default {
     dataAll() {
       //恢复数据
       this.getList();
-      this.searchObj.paraName = "";
       this.$message({
         message: "全部遥测参数配置已开启",
         type: "success"

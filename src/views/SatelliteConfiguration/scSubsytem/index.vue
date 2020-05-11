@@ -201,8 +201,6 @@ export default {
     dataAll() {
       //恢复数据
       this.getList();
-      // this.searchObj.subsytemName = "";
-      // this.searchObj.scName = "";
       this.$message({
         message: "全部卫星分系统已开启",
         type: "success"
