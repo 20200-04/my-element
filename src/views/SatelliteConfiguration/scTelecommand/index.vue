@@ -90,6 +90,7 @@ export default {
     return {
       title: "",
       createModel: false, // 弹框显示隐藏
+      disabledScName: false,
       form: {},
       // 数据整体存储
       tableData: [],
@@ -141,6 +142,8 @@ export default {
   methods: {
     init() {
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.searchObj.scName = "";
+      this.searchObj.commandName = "";
       this.getListAll();
     },
     async getList() {
@@ -148,9 +151,14 @@ export default {
       const { data } = await scTeleCommands.getScTeleCommandLists();
       this.tableData = data;
       this.getsatelliteType();
-      this.disabledScName = false;
+      this.getScTeleCommandName();
       this.init();
-
+      this.disabledScName = false;
+      this.layout.hideLoading();
+    },
+    //查询指令
+    async getScTeleCommandName() {
+      const { data } = await await scTeleCommands.getScTeleCommandLists();
       let res = data.map(item => {
         return {
           id: item.commandId,
@@ -158,7 +166,6 @@ export default {
         };
       });
       this.scTeleCommandType = res;
-      this.layout.hideLoading();
     },
     // 查询卫星id
     async getsatelliteType() {
@@ -193,8 +200,7 @@ export default {
     dataAll() {
       //恢复数据
       this.getList();
-      this.searchObj.scName = "";
-      this.searchObj.commandName = "";
+
       this.$message({
         message: "全部直接指令配置已开启",
         type: "success"
@@ -264,7 +270,7 @@ export default {
     // 删除单个
     deleteItem(item) {
       this.$confirm(`是否要删除${item.commandName}卫星指令?`, "提示", {
-        confirmButtonText: "删除11",
+        confirmButtonText: "删除",
         cancelButtonText: "取消",
         type: "warning"
       }).then(async () => {

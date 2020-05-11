@@ -143,6 +143,8 @@ export default {
   methods: {
     init() {
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.searchObj.subsytemName = "";
+      this.searchObj.scName = "";
       this.getListAll();
     },
     async getList() {

@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       rules: {
-        scId: [{ required: true, message: "请选择卫星", trigger: "change" }],
+        scid: [{ required: true, message: "请选择卫星", trigger: "change" }],
         subsytemTypeId: [
           { required: true, message: "分系统配置名称", trigger: "change" }
         ]

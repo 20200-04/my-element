@@ -5,7 +5,7 @@
       <div>
         <el-button type="info" plain @click="dataAll" v-if="disabledScName">全部遥测参数配置</el-button>
         <el-select
-          v-model="searchObj.scId"
+          v-model="searchObj.scName"
           filterable
           clearable
           :disabled="disabledScName"
@@ -155,7 +155,7 @@ export default {
       editIndex: -1,
       form: {},
       searchObj: {
-        scId: "",
+        scName: "",
         apId: "",
         subsystemId: "",
         paraName: ""
@@ -212,7 +212,7 @@ export default {
     const obj = this.$route.params.obj;
     if (obj && obj.scId) {
       this.getListId(obj.scId);
-      // this.searchObj.scName = obj.scName;
+      this.searchObj.scName = obj.scName;
       this.disabledScName = true;
     } else {
       this.getList();
@@ -221,6 +221,10 @@ export default {
   methods: {
     init() {
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.searchObj.scName = "";
+      this.searchObj.apId = "";
+      this.searchObj.subsystemId = "";
+      this.searchObj.paraName = "";
       this.getListAll();
     },
     async getList() {
@@ -231,6 +235,7 @@ export default {
       this.tableData = data;
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
       this.disabledScName = false;
+      this.init();
       this.getListAll();
       this.layout.hideLoading();
     },

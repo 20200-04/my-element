@@ -144,6 +144,8 @@ export default {
   methods: {
     init() {
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.searchObj.apName = "";
+      this.searchObj.scName = "";
       this.getListAll();
     },
     async getList() {
@@ -257,7 +259,7 @@ export default {
             type: "success"
           });
           // 关闭模态框
-          this.searchObj.scName = "";
+          this.createModel = false;
         } else {
           console.log("error submit!!");
           return false;
