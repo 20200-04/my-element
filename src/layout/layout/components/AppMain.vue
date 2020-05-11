@@ -9,18 +9,10 @@
 <script>
 export default {
   name: "AppMain",
-  data() {
-    return {
-      scrollHeight: "0px"
-    };
-  },
   computed: {
     key() {
       return this.$route.path;
     }
-  },
-  mounted() {
-    this.scrollHeight = window.innerHeight * 0.9 + "px";
   }
 };
 </script>
