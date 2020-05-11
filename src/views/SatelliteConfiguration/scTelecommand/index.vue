@@ -106,7 +106,7 @@ export default {
       paginations: {
         //分页
         page: 1,
-        limit: 13,
+        limit: 16,
         pageTotal: 0
       }
     };
@@ -156,7 +156,7 @@ export default {
       this.disabledScName = false;
       this.layout.hideLoading();
     },
-    //查询指令
+    //查询指令id
     async getScTeleCommandName() {
       const { data } = await await scTeleCommands.getScTeleCommandLists();
       let res = data.map(item => {
@@ -200,7 +200,6 @@ export default {
     dataAll() {
       //恢复数据
       this.getList();
-
       this.$message({
         message: "全部直接指令配置已开启",
         type: "success"
@@ -339,7 +338,8 @@ export default {
   align-items: center;
   background: #fff;
   position: fixed;
-  left: 200px;
+  left: 0;
+  padding-left:200px;
   bottom: 0;
   right: 0;
   z-index: 100;

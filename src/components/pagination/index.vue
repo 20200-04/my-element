@@ -2,7 +2,6 @@
   <div class="pagination">
     <el-pagination
       v-if="pageTotal >= 0"
-      :page-sizes="paginations.pageSizes"
       :page-size="paginations.pageSize"
       :layout="paginations.layout"
       :total="pageTotal"
@@ -20,8 +19,7 @@ export default {
     return {
       paginations: {
         pageSize: 16, // 1页显示多少条
-        pageSizes: [16,25], // 每页显示多少条
-        layout: "total, sizes, prev, pager, next, jumper" // 翻页属性,
+        layout: "total,  prev, pager, next, jumper" // 翻页属性,
       }
     };
   },

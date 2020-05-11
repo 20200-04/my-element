@@ -108,7 +108,7 @@ export default {
       paginations: {
         //分页
         page: 1,
-        limit: 14,
+        limit: 16,
         pageTotal: 0
       }
     };
@@ -324,7 +324,8 @@ export default {
   align-items: center;
   background: #fff;
   position: fixed;
-  left: 200px;
+  left: 0;
+  padding-left:200px;
   bottom: 0;
   right: 0;
   z-index: 100;

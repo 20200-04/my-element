@@ -74,7 +74,6 @@ export default {
   created() {},
   methods: {
     handleClick(tab, event) {
-      // console.log(tab, event);
       const { index } = tab;
       this.index = index;
     },
