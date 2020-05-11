@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import getters from './getters'
 import app from './modules/app'
 import settings from './modules/settings'
+import tagsView from './modules/tagsView'
+import permission from './modules/permission'
 import user from './modules/user'
 import sc from './modules/sc'
 
@@ -13,7 +15,9 @@ const store = new Vuex.Store({
     app,
     settings,
     user,
-    sc
+    sc,
+    tagsView,
+    permission
   },
   getters
 })

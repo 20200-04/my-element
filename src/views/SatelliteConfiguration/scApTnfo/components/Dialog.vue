@@ -22,7 +22,7 @@
             size="mini"
             placeholder="请输入卫星名称"
             :disabled="type === 'edit'"
-            style="width: 72%;"
+            style="width: 53%;"
           >
             <el-option
               v-for="(item,index) in satellite_scname"
@@ -33,7 +33,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="应用识别过程名称" prop="apName">
-          <el-input size="mini" v-model="form.apName" placeholder="请输入应用识别过程名称" style="width: 72%;"></el-input>
+          <el-input size="mini" v-model="form.apName" placeholder="请输入应用识别过程名称" style="width: 53%;"></el-input>
         </el-form-item>
         <el-form-item label="应用识别过程id" prop="apId">
           <el-input
@@ -41,7 +41,7 @@
             v-model="form.apId"
             placeholder="请输入应用识别过程名称"
             :disabled="type === 'edit'"
-           style="width: 72%;"
+            style="width: 53%;"
           ></el-input>
         </el-form-item>
       </el-form>

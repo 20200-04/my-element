@@ -17,8 +17,8 @@
     </div>
     <el-table :data="tableDataCopy" border style="width: 100%">
       <el-table-column type="selection" width="45" align="center"></el-table-column>
-      <el-table-column align="center" prop="scId" label="卫星ID" width="180"></el-table-column>
-      <el-table-column align="center" prop="typeName" label="卫星类型" width="180"></el-table-column>
+      <el-table-column align="center" prop="scId" label="卫星ID"></el-table-column>
+      <el-table-column align="center" prop="typeName" label="卫星类型"></el-table-column>
       <el-table-column align="center" prop="scName" label="卫星名称"></el-table-column>
       <el-table-column align="center" prop="scCode" label="卫星代号"></el-table-column>
       <el-table-column align="center" prop="orbitInclination" label="轨道倾角"></el-table-column>
@@ -33,11 +33,14 @@
       <el-table-column align="center" prop="create_time" label="入库时间" width="160">
         <template slot-scope="scope">{{scope.row.createTime | time}}</template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="250">
+      <el-table-column align="center" label="操作" width="540">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
           <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
-          <el-button type="warning" size="mini" @click="goItem(scope.row)">go</el-button>
+          <el-button type="warning" size="mini" @click="goItem(scope.row,'scApTnfo')">配置应用</el-button>
+          <el-button type="warning" size="mini" @click="goItem(scope.row,'scSubsytem')">配置分系统</el-button>
+          <el-button type="warning" size="mini" @click="goItem(scope.row,'scParaInfo')">配置遥测</el-button>
+          <el-button type="warning" size="mini" @click="goItem(scope.row,'scTelecommand')">配置指令</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -170,7 +173,6 @@ export default {
       console.log(data);
     },
     async puteScInfo(obj) {
-      console.log(obj);
       const { data } = await scInfo.putScInfoId(obj);
     },
     async deleteSingle(id) {
@@ -285,9 +287,9 @@ export default {
       this.getListAll();
     },
     // 配置页面
-    goItem(val) {
+    goItem(val, path) {
       this.$router.push({
-        name: "scSubsytemType",
+        name: path,
         params: {
           obj: val
         }

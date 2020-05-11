@@ -1,4 +1,4 @@
- export default function filter(arr, obj = {}) {
+export default function filter(arr, obj = {}) {
   console.log(obj);
 
   let flag = true

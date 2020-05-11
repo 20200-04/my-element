@@ -3,15 +3,22 @@
     <div class="fun-head">
       <el-button size="mini" type="success" @click="openModel(false)">添加卫星指令</el-button>
       <div>
-        <el-select v-model="searchObj.subsytemName" filterable clearable placeholder="请选择卫星类型">
+        <el-button type="info" plain @click="dataAll" v-if="disabledScName">全部卫星分系统配置</el-button>
+        <el-input v-model="searchObj.subsytemName" placeholder="请输入卫星分系统名称" style="width:190px;"></el-input>
+        <el-select
+          v-model="searchObj.scName"
+          filterable
+          clearable
+          :disabled="disabledScName"
+          placeholder="请选择卫星名称"
+        >
           <el-option
-            v-for="item in transmitObj.scSubSytemType"
+            v-for="item in transmitObj.satelliteType"
             :key="item.id"
             :label="item.name"
             :value="item.name"
           ></el-option>
         </el-select>
-        <el-input v-model="searchObj.scName" placeholder="请输入卫星名称" style="width:180px;"></el-input>
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
@@ -80,6 +87,7 @@ export default {
   },
   data() {
     return {
+      disabledScName: false,
       title: "",
       createModel: false, // 弹框显示隐藏
       form: {},
@@ -89,7 +97,7 @@ export default {
       multipleSelection: [],
       searchObj: {
         scName: "",
-        typeName: ""
+        subsytemName: ""
       },
       transmitObj: {
         satelliteType: [],
@@ -121,19 +129,30 @@ export default {
     }
   },
   mounted() {
-    this.layout.showLoading();
-    this.getList();
-    this.layout.hideLoading();
+    const obj = this.$route.params.obj;
+    if (obj && obj.scId) {
+      this.getListId(obj.scId);
+      this.getsatelliteType();
+      this.getscSubsystemType();
+      this.searchObj.scName = obj.scName;
+      this.disabledScName = true;
+    } else {
+      this.getList();
+    }
   },
   methods: {
+    init() {
+      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.getListAll();
+    },
     async getList() {
       this.layout.showLoading();
       const { data } = await scSubSytem.getScSubSytem();
       this.tableData = data;
       this.getsatelliteType();
       this.getscSubsystemType();
-      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
-      this.getListAll();
+      this.init();
+      this.disabledScName = false;
       this.layout.hideLoading();
     },
     // 查询卫星id
@@ -146,7 +165,6 @@ export default {
         };
       });
       this.transmitObj.satelliteType = res;
-      console.log(res);
     },
     // 查询卫星分系统设置id
     async getscSubsystemType() {
@@ -158,7 +176,6 @@ export default {
         };
       });
       this.transmitObj.scSubSytemType = res;
-      console.log(res);
     },
     async addType(obj) {
       const { data } = await scSubSytem.postScSubSytem(obj);
@@ -172,10 +189,20 @@ export default {
     },
     async getListId(str) {
       this.layout.showLoading();
-      console.log(str);
       const { data } = await scSubSytem.getScSubSytemId(str);
-      console.log(data);
+      this.tableData = data;
+      this.init();
       this.layout.hideLoading();
+    },
+    dataAll() {
+      //恢复数据
+      this.getList();
+      this.searchObj.subsytemName = "";
+      this.searchObj.scName = "";
+      this.$message({
+        message: "全部卫星分系统已开启",
+        type: "success"
+      });
     },
     openModel(e = false) {
       if (!e) {
@@ -277,15 +304,6 @@ export default {
     handleSizeChange(val) {
       this.paginations.limit = val;
       this.getListAll();
-    },
-    // 配置页面
-    goItem(val) {
-      this.$router.push({
-        name: "scSubsytemType",
-        params: {
-          obj: val
-        }
-      });
     }
   }
 };

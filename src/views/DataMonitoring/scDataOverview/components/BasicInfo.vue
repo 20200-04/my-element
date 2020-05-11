@@ -1,21 +1,44 @@
 
 <template>
-  <div :basicInfo="basicInfo" class="container">
-    <el-table
-      :data="basicInfo"
-      border
-      :header-cell-style="{background:'#eef1f6',color:'#606266'}"
-      style="width:100%"
-    >
-      <el-table-column align="center" prop="scId" label="卫星id"></el-table-column>
-      <el-table-column align="center" prop="scName" label="卫星名称"></el-table-column>
-      <el-table-column align="center" prop="scCode" label="卫星代号"></el-table-column>
-      <el-table-column align="center" prop="scType" label="卫星类型"></el-table-column>
-      <el-table-column align="center" prop="orbitInclination" label="轨道倾角"></el-table-column>
-      <el-table-column align="center" prop="orbitType" label="轨道类型"></el-table-column>
-      <el-table-column align="center" prop="orbitAltitude" label="卫星高度"></el-table-column>
-      <el-table-column align="center" prop="launchTime" label="发射时间"></el-table-column>
-    </el-table>
+  <div class="basicInfo">
+    <div class="head">
+      <span class="leftBg"></span>
+      <span>基础信息</span>
+    </div>
+    <div class="content">
+      <li>
+        <span>卫星id：</span>
+        <span>{{basicInfo.scId}}</span>
+      </li>
+      <li>
+        <span>卫星名称：</span>
+        <span>{{basicInfo.scName}}</span>
+      </li>
+      <li>
+        <span>卫星代号：</span>
+        <span>{{basicInfo.scCode}}</span>
+      </li>
+      <li>
+        <span>卫星类型：</span>
+        <span>{{basicInfo.scType}}</span>
+      </li>
+      <li>
+        <span>轨道倾角：</span>
+        <span>{{basicInfo.orbitInclination}}</span>
+      </li>
+      <li>
+        <span>轨道类型：</span>
+        <span>{{basicInfo.orbitType}}</span>
+      </li>
+      <li>
+        <span>卫星高度：</span>
+        <span>{{basicInfo.orbitAltitude}}</span>
+      </li>
+      <li>
+        <span>发射时间：</span>
+        <span>{{basicInfo.launchTime}}</span>
+      </li>
+    </div>
   </div>
 </template>
 
@@ -24,18 +47,46 @@
 export default {
   props: {
     basicInfo: {
-      type: Array
+      type: Object
     }
   },
-
-  mounted() {
-    console.log(this.basicInfo);
-  }
+  mounted() {}
 };
 </script>
 
 <style  scoped>
-.container {
+.basicInfo {
   width: 100%;
+}
+.basicInfo .head {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  background: #dcdfe6;
+  display: flex;
+  border: 1px solid #ebeef5;
+}
+.basicInfo .head .leftBg {
+  display: block;
+  width: 4px;
+  height: 100%;
+  background: #606266;
+  margin-right: 15px;
+}
+.basicInfo .content li {
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  border: 1px solid #ebeef5;
+  border-top: none;
+  font-size: 13px;
+}
+.basicInfo .content li span:nth-child(1) {
+  color: #999999;
+  margin-left: 20px;
+}
+.basicInfo .content li span:nth-child(2) {
+  color: #333;
 }
 </style>

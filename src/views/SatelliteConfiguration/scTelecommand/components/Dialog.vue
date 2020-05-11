@@ -17,7 +17,7 @@
         class="form-class"
       >
         <el-form-item label="卫星ID" prop="scId">
-          <el-select v-model="form.scId" size="mini" placeholder="请选择卫星名称" style="width: 72%;">
+          <el-select v-model="form.scId" size="mini" placeholder="请选择卫星名称" style="width: 53%;">
             <el-option
               v-for="(item,index) in satelliteType"
               :key="index"
@@ -27,21 +27,21 @@
           </el-select>
         </el-form-item>
         <el-form-item label="指令编号" prop="commandCode">
-          <el-input v-model="form.commandCode" placeholder="指令编号" size="mini" style="width: 72%;"></el-input>
+          <el-input v-model="form.commandCode" placeholder="指令编号" size="mini" style="width: 53%;"></el-input>
         </el-form-item>
         <el-form-item label="指令名称" prop="commandName">
-          <el-input v-model="form.commandName" placeholder="指令名称" size="mini" style="width: 72%;"></el-input>
+          <el-input v-model="form.commandName" placeholder="指令名称" size="mini" style="width: 53%;"></el-input>
         </el-form-item>
         <el-form-item label="指令发送" prop="commandDescription">
           <el-input
             v-model="form.commandDescription"
             placeholder="指令发送"
             size="mini"
-            style="width: 72%;"
+            style="width: 53%;"
           ></el-input>
         </el-form-item>
         <el-form-item label="指令数据" prop="commandData">
-          <el-input v-model="form.commandData" placeholder="指令数据" size="mini" style="width: 72%;"></el-input>
+          <el-input v-model="form.commandData" placeholder="指令数据" size="mini" style="width: 53%;"></el-input>
         </el-form-item>
       </el-form>
 

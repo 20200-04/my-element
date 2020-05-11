@@ -1,13 +1,17 @@
 
 <template>
-  <div class="container">
-    <el-table :data="newTaskPlanning" :row-class-name="tableRowClassName">
-      <el-table-column label="最新任务计划" align="center">
-        <el-table-column prop="commandName" label="任务代号" sortable align="center"></el-table-column>
-        <el-table-column prop="scName" label="卫星名称" sortable align="center"></el-table-column>
-        <el-table-column prop="createTime" label="发送时间" align="center" sortable></el-table-column>
-      </el-table-column>
-    </el-table>
+  <div class="plan">
+    <div class="head">
+      <span class="leftBg"></span>
+      <span>载荷工作计划</span>
+    </div>
+    <div class="content">
+      <li v-for="(item,index) in newTaskPlanning" :key="index">
+        <span>{{item.commandName}}</span>
+        <span>{{item.survey}}</span>
+        <span>{{item.createTime}}</span>
+      </li>
+    </div>
   </div>
 </template>
 
@@ -19,30 +23,40 @@ export default {
       type: Array
     }
   },
-  mounted() {
-    console.log(this.newTaskPlanning);
-  },
-  methods: {
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex === 1) {
-        return "warning-row";
-      } else if (rowIndex === 3) {
-        return "success-row";
-      }
-      return "";
-    }
-  }
+  mounted() {},
+  methods: {}
 };
 </script>
 
 <style>
-.container {
+.plan {
   width: 100%;
 }
-.el-table .warning-row {
-  background: oldlace;
+.plan .head {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  background: #dcdfe6;
+  display: flex;
+  border: 1px solid #ebeef5;
 }
-.el-table .success-row {
-  background: #f0f9eb;
+.plan .head .leftBg {
+  display: block;
+  width: 4px;
+  height: 100%;
+  background: #606266;
+  margin-right: 15px;
+}
+.plan .content li {
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  border: 1px solid #ebeef5;
+  border-top: none;
+  font-size: 13px;
+}
+.plan .content li span {
+  padding: 0 25px;
 }
 </style>

@@ -7,6 +7,7 @@
       <div :class="{'fixed-header':fixedHeader}">
         <!-- 面包屑导航 -->
         <navbar />
+        <tags-view v-if="needTagsView" />
       </div>
       <app-main v-loading="loading" />
     </div>
@@ -15,6 +16,7 @@
 
 <script>
 import { Navbar, Sidebar, AppMain } from "./components";
+import TagsView from "./components/TagsView/index";
 import ResizeMixin from "./mixin/ResizeHandler";
 
 export default {
@@ -32,7 +34,8 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+    TagsView
   },
   mixins: [ResizeMixin],
   computed: {
@@ -41,6 +44,9 @@ export default {
     },
     device() {
       return this.$store.state.app.device;
+    },
+    needTagsView() {
+      return this.$store.state.settings.tagsView;
     },
     fixedHeader() {
       return this.$store.state.settings.fixedHeader;

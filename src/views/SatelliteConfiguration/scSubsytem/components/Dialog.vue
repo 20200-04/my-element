@@ -17,7 +17,7 @@
         class="form-class"
       >
         <el-form-item label="卫星名称" prop="scId">
-          <el-select v-model="form.scid" size="mini" placeholder="请选择卫星名称" style="width: 72%;">
+          <el-select v-model="form.scid" size="mini" style="width: 53%;" placeholder="请选择卫星名称">
             <el-option
               v-for="(item,index) in transmitObj.satelliteType"
               :key="index"
@@ -27,7 +27,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="分系统配置名称" prop="subsytemTypeId">
-          <el-select v-model="form.subsytemTypeId" size="mini" placeholder="请选择分系统配置" style="width: 72%;">
+          <el-select
+            v-model="form.subsytemTypeId"
+            size="mini"
+            style="width: 53%;"
+            placeholder="请选择分系统配置"
+          >
             <el-option
               v-for="(item,index) in transmitObj.scSubSytemType"
               :key="index"

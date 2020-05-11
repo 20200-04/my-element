@@ -1,10 +1,5 @@
 <template>
   <div class="scTelemeteringCode">
-    <!-- <el-row :gutter="30">
-      <el-col :span="6" v-for="(o, index) in 10" :key="index">
-        <el-card :body-style="{ padding: '0px' }" shadow="always" class="card">1</el-card>
-      </el-col>
-    </el-row>-->
     <table border="1" style="border-collapse:collapse; border-color: #909399;">
       <thead>
         <tr style="border-color:#C0C4CC">
@@ -35,7 +30,7 @@
 </template>
 
 <script>
-import WebSocketProxy from "@/utils/socketProxy";
+// import WebSocketProxy from "@/utils/socketProxy";
 let item = ["1a", "cf", "fc", "1d", "40", "41", "00", "02"];
 export default {
   data() {
@@ -46,7 +41,6 @@ export default {
   },
   mounted() {
     // this.initWebSocket();
-
     this.paraOriginal = [
       {
         devTime: "2020-04-28 12:23:39",
@@ -62,24 +56,18 @@ export default {
     // this.websock.close(); // 离开路由之后断开websocket连接
   },
   methods: {
-    initWebSocket() {
-      let _this = this;
-      //初始化WebSocket
-      this.websock = new WebSocketProxy("ws://localhost:6001");
-      this.websock.onopen = () => {
-        this.websock.subscribe("task");
-      };
-      const listener = function(msg) {
-        console.log(msg);
-
-        // const list = _this.newTelecommand;
-        // if (list.length === 4) {
-        //   list.shift();
-        // }
-        // list.push(msg);
-      };
-      this.websock.on("task", listener);
-    }
+    // initWebSocket() {
+    //   let _this = this;
+    //   //初始化WebSocket
+    //   this.websock = new WebSocketProxy("ws://localhost:6001");
+    //   this.websock.onopen = () => {
+    //     this.websock.subscribe("task");
+    //   };
+    //   const listener = function(msg) {
+    //     console.log(msg);
+    //   };
+    //   this.websock.on("task", listener);
+    // }
   }
 };
 </script>

@@ -3,10 +3,12 @@
     <div class="fun-head">
       <el-button size="mini" type="success" @click="openModel(false)">添加遥测参数配置</el-button>
       <div>
+        <el-button type="info" plain @click="dataAll" v-if="disabledScName">全部遥测参数配置</el-button>
         <el-select
           v-model="searchObj.scId"
           filterable
           clearable
+          :disabled="disabledScName"
           @change="currentScNameId"
           placeholder="请选择卫星名称"
         >
@@ -17,7 +19,13 @@
             :value="item.id"
           ></el-option>
         </el-select>
-        <el-select v-model="searchObj.apId" filterable clearable placeholder="请选择应用识别过程">
+        <el-select
+          v-model="searchObj.apId"
+          filterable
+          clearable
+          :disabled="disabledScName"
+          placeholder="请选择应用识别过程"
+        >
           <el-option
             v-for="item in transmitObj.satelliteScApInfo"
             :key="item.id + Math.random()"
@@ -25,7 +33,13 @@
             :value="item.id"
           ></el-option>
         </el-select>
-        <el-select v-model="searchObj.subsystemId" filterable clearable placeholder="请选择卫星分系统">
+        <el-select
+          v-model="searchObj.subsystemId"
+          filterable
+          clearable
+          :disabled="disabledScName"
+          placeholder="请选择卫星分系统"
+        >
           <el-option
             v-for="item in transmitObj.satelliteSubsystemType"
             :key="item.id  + Math.random()"
@@ -37,9 +51,39 @@
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
-    <el-table :data="tableDataCopy" border style="width: 100%">
-      <el-table-column type="selection" width="45" fixed align="center"></el-table-column>
-      <el-table-column align="center" prop="paraId" label="参数ID" fixed width="180"></el-table-column>
+    <el-table :data="tableDataCopy" style="width: 100%">
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="一级阈值上限">
+              <span>{{ props.row.thresholdU1 }}</span>
+            </el-form-item>
+            <el-form-item label="一级阈值下限">
+              <span>{{ props.row.thresholdL1 }}</span>
+            </el-form-item>
+            <el-form-item label="二级阈值上限">
+              <span>{{ props.row.thresholdU2 }}</span>
+            </el-form-item>
+            <el-form-item label="二级阈值下限">
+              <span>{{ props.row.thresholdL2 }}</span>
+            </el-form-item>
+            <el-form-item label="三级阈值上限">
+              <span>{{ props.row.thresholdU3 }}</span>
+            </el-form-item>
+            <el-form-item label="三级阈值下限">
+              <span>{{ props.row.thresholdL3 }}</span>
+            </el-form-item>
+            <el-form-item label="修改时间">
+              <span>{{ props.row.updateTime | time}}</span>
+            </el-form-item>
+            <el-form-item label="入库时间">
+              <span>{{ props.row.createTime | time}}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
+      <el-table-column type="selection" width="30" align="center"></el-table-column>
+      <el-table-column align="center" prop="paraId" label="参数ID" width="70"></el-table-column>
       <el-table-column align="center" prop="subsytemName" label="所属分系统"></el-table-column>
       <el-table-column align="center" prop="paraName" label="参数名称"></el-table-column>
       <el-table-column align="center" prop="startPos" label="参数起始位置"></el-table-column>
@@ -49,23 +93,10 @@
       <el-table-column align="center" prop="scName" label="卫星名称"></el-table-column>
       <el-table-column align="center" prop="apName" label="应用识别名称"></el-table-column>
       <el-table-column align="center" prop="subsytemName" label="分系统名称"></el-table-column>
-      <el-table-column align="center" prop="thresholdU1" label="一级阈值上限"></el-table-column>
-      <el-table-column align="center" prop="thresholdL1" label="一级阈值下限"></el-table-column>
-      <el-table-column align="center" prop="thresholdU2" label="二级阈值上限"></el-table-column>
-      <el-table-column align="center" prop="thresholdL2" label="二级阈值下限"></el-table-column>
-      <el-table-column align="center" prop="thresholdU3" label="三级阈值上限"></el-table-column>
-      <el-table-column align="center" prop="thresholdL3" label="三级阈值下限"></el-table-column>
-      <el-table-column align="center" prop="update_time" label="修改时间" width="160">
-        <template slot-scope="scope">{{scope.row.updateTime | time}}</template>
-      </el-table-column>
-      <el-table-column align="center" prop="create_time" label="入库时间" width="160">
-        <template slot-scope="scope">{{scope.row.createTime | time}}</template>
-      </el-table-column>
-      <el-table-column align="center" label="操作" fixed="right" width="250">
+      <el-table-column align="center" label="操作" width="250">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="openModel(scope)">修改</el-button>
           <el-button type="danger" size="mini" @click="deleteItem(scope.row)">删除</el-button>
-          <el-button type="warning" size="mini" @click="goItem(scope.row)">go</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -107,7 +138,6 @@ import filterFun from "../../../utils/filter";
 // 分页组件
 import pagination from "../../../components/pagination";
 import { log } from "util";
-
 export default {
   name: "Dashboard",
   inject: ["layout"],
@@ -118,6 +148,7 @@ export default {
   },
   data() {
     return {
+      disabledScName: false,
       disabled: true,
       title: "",
       createModel: false, // 弹框显示隐藏
@@ -165,8 +196,6 @@ export default {
             newValue.subsystemId === "" &&
             newValue.paraName === ""
           ) {
-            console.log(11111111);
-
             this.disabled = true;
             this.tableData = this.tableConst;
             this.getListAll();
@@ -180,11 +209,20 @@ export default {
     }
   },
   mounted() {
-    this.layout.showLoading();
-    this.getList();
-    this.layout.hideLoading();
+    const obj = this.$route.params.obj;
+    if (obj && obj.scId) {
+      this.getListId(obj.scId);
+      // this.searchObj.scName = obj.scName;
+      this.disabledScName = true;
+    } else {
+      this.getList();
+    }
   },
   methods: {
+    init() {
+      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.getListAll();
+    },
     async getList() {
       this.layout.showLoading();
       const { data } = await scParaInfo.getScParaInfo();
@@ -192,6 +230,7 @@ export default {
       this.getScInfo();
       this.tableData = data;
       this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.disabledScName = false;
       this.getListAll();
       this.layout.hideLoading();
     },
@@ -239,7 +278,6 @@ export default {
       });
       this.transmitObj.satelliteInstruct = res;
     },
-
     async addParaInfo(obj) {
       const data = await scParaInfo.postScParaInfo(obj);
       console.log(data);
@@ -251,6 +289,23 @@ export default {
     async deleteSingle(id) {
       const { data } = await scParaInfo.deleteScParaInfoId(id);
     },
+    async getListId(id) {
+      this.layout.showLoading();
+      const { data } = await scParaInfo.getScParaInfoId(id);
+      console.log(data);
+      this.tableData = data;
+      this.init();
+      this.layout.hideLoading();
+    },
+    dataAll() {
+      //恢复数据
+      this.getList();
+      this.searchObj.paraName = "";
+      this.$message({
+        message: "全部遥测参数配置已开启",
+        type: "success"
+      });
+    },
     // 打开模态框
     openModel(e = false) {
       // 增加
@@ -261,7 +316,6 @@ export default {
           apId: "",
           funcId: "",
           funcPara: "",
-          //   paraId: "",
           scId: "",
           startPos: "",
           subsystemId: "",
@@ -296,8 +350,6 @@ export default {
           thresholdU3: e.row.thresholdU3,
           thresholdL3: e.row.thresholdL3
         };
-        console.log(11111);
-
         console.log(this.form);
         this.currentScNameId(this.form.scId);
         this.editIndex = e.$index;
@@ -306,8 +358,6 @@ export default {
       this.createModel = true;
     },
     currentScNameId(val) {
-      console.log(val);
-
       this.getSubSytems(val);
       this.getScApTnfo(val);
       this.getScParaFunc();
@@ -418,12 +468,23 @@ export default {
   align-items: center;
   background: #fff;
   position: fixed;
-  left: 0px;
-  padding-left: 65%;
+  left: 200px;
   bottom: 0;
   right: 0;
   z-index: 100;
   border-top: 1px solid #ccc;
+}
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 33%;
 }
 </style>
 

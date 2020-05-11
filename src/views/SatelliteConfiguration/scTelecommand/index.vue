@@ -3,15 +3,22 @@
     <div class="fun-head">
       <el-button size="mini" type="success" @click="openModel(false)">添加卫星指令</el-button>
       <div>
-        <el-select v-model="searchObj.commandName" filterable clearable placeholder="请选择卫星类型">
+        <el-button type="info" plain @click="dataAll" v-if="disabledScName">全部直接指令配置</el-button>
+        <el-input v-model="searchObj.commandName" placeholder="请输入卫星指令名称" style="width:180px;"></el-input>
+        <el-select
+          v-model="searchObj.scName"
+          filterable
+          clearable
+          :disabled="disabledScName"
+          placeholder="请选择卫星名称"
+        >
           <el-option
-            v-for="item in scTeleCommandType"
+            v-for="item in satelliteType"
             :key="item.id"
             :label="item.name"
             :value="item.name"
           ></el-option>
         </el-select>
-        <el-input v-model="searchObj.scName" placeholder="请输入卫星名称" style="width:180px;"></el-input>
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
@@ -122,23 +129,28 @@ export default {
     }
   },
   mounted() {
-    this.layout.showLoading();
-    if (this.$route.params.obj && this.$route.params.obj.scId) {
-      this.getListId(this.$route.params.obj.scId);
-      console.log(this.$route.params.obj.scId);
+    const obj = this.$route.params.obj;
+    if (obj && obj.scId) {
+      this.getListId(obj.scId);
+      this.searchObj.scName = obj.scName;
+      this.disabledScName = true;
     } else {
       this.getList();
     }
-    this.layout.hideLoading();
   },
   methods: {
+    init() {
+      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.getListAll();
+    },
     async getList() {
       this.layout.showLoading();
       const { data } = await scTeleCommands.getScTeleCommandLists();
       this.tableData = data;
-      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
       this.getsatelliteType();
-      this.getListAll();
+      this.disabledScName = false;
+      this.init();
+
       let res = data.map(item => {
         return {
           id: item.commandId,
@@ -175,7 +187,18 @@ export default {
       const { data } = await scTeleCommands.getScTeleCommandsId(str);
       this.tableData = data;
       this.getsatelliteType();
-      this.getListAll();
+      this.tableData = data;
+      this.init();
+    },
+    dataAll() {
+      //恢复数据
+      this.getList();
+      this.searchObj.scName = "";
+      this.searchObj.commandName = "";
+      this.$message({
+        message: "全部直接指令配置已开启",
+        type: "success"
+      });
     },
     openModel(e = false) {
       if (!e) {
@@ -283,15 +306,6 @@ export default {
     handleSizeChange(val) {
       this.paginations.limit = val;
       this.getListAll();
-    },
-    // 配置页面
-    goItem(val) {
-      this.$router.push({
-        name: "scSubsytemType",
-        params: {
-          obj: val
-        }
-      });
     }
   }
 };

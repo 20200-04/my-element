@@ -18,7 +18,7 @@
         class="form-class"
       >
         <el-form-item label="卫星类型" prop="scType">
-          <el-select v-model="form.scType" size="mini" placeholder="请选择卫星类型" style="width: 72%;">
+          <el-select v-model="form.scType" size="mini" placeholder="请选择卫星类型">
             <el-option
               v-for="(item,index) in transmitObj.satelliteType"
               :key="index"
@@ -28,7 +28,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="轨道类型" prop="orbitId">
-          <el-select v-model="form.orbitId" size="mini" placeholder="请选择轨道类型" style="width: 72%;">
+          <el-select v-model="form.orbitId" size="mini" placeholder="请选择轨道类型">
             <el-option
               v-for="(item,index) in transmitObj.pathwayType"
               :key="index"
@@ -38,21 +38,21 @@
           </el-select>
         </el-form-item>
         <el-form-item label="卫星名称" prop="scName">
-          <el-input v-model="form.scName" placeholder="卫星名称" size="mini" style="width: 72%;"></el-input>
+          <el-input v-model="form.scName" placeholder="卫星名称" size="mini" style="width: 53%;"></el-input>
         </el-form-item>
         <el-form-item label="卫星代号" prop="scCode">
-          <el-input v-model="form.scCode" placeholder="卫星代号" size="mini" style="width: 72%;"></el-input>
+          <el-input v-model="form.scCode" placeholder="卫星代号" size="mini" style="width: 53%;"></el-input>
         </el-form-item>
         <el-form-item label="轨道倾角" prop="orbitInclination">
           <el-input
             v-model="form.orbitInclination"
             placeholder="轨道倾角"
             size="mini"
-            style="width: 72%;"
+            style="width: 53%;"
           ></el-input>
         </el-form-item>
         <el-form-item label="卫星高度" prop="orbitAltitude">
-          <el-input v-model="form.orbitAltitude" placeholder="卫星高度" size="mini" style="width: 72%;"></el-input>
+          <el-input v-model="form.orbitAltitude" placeholder="卫星高度" size="mini" style="width: 53%;"></el-input>
         </el-form-item>
         <el-form-item label="发射时间" prop="launchTime">
           <div class="block">
@@ -61,7 +61,7 @@
               size="mini"
               type="datetime"
               placeholder="选择日期时间"
-              style="width: 72%;"
+              style="width: 53%;"
             ></el-date-picker>
           </div>
         </el-form-item>

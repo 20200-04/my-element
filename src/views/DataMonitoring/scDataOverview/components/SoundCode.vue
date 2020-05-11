@@ -1,109 +1,88 @@
 <template>
-  <div>
-    <div class="fun-head">
-      <div>
-        <el-input
-          v-model="searchObj.scCode"
-          size="mini"
-          placeholder="请输入卫星名称"
-          style="width:180px;margin-bottom:6px;"
-        ></el-input>
-        <el-button type="primary" :disabled="disabled" size="mini" @click="search">搜索</el-button>
-      </div>
-    </div>
-    <el-table :data="data" :row-class-name="tableRowClassName">
-      <el-table-column label="卫星源码" align="center">
-        <el-table-column prop="scCode" label="卫星代号" align="center" sortable></el-table-column>
-        <el-table-column prop="scName" label="卫星名称" sortable align="center"></el-table-column>
-        <el-table-column prop="state" label="源码" align="center"></el-table-column>
-        <el-table-column align="center" label="操作" width="100">
-          <template slot-scope="scope">
-            <el-button type="warning" size="mini" @click="goItem(scope.row)">go</el-button>
-          </template>
-        </el-table-column>
-      </el-table-column>
-    </el-table>
+  <div class="paraCode">
+    <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+      <el-tab-pane name="first" class="itemHeight">
+        <span slot="label">
+          <a :title="index === 0?'更多源码':'更多参数'">
+            <svg-icon iconClass="details" class="iconItem" @click="goItem" />
+          </a>
+          源码
+        </span>
+        <table border="0" style="border-collapse:collapse; border-color: #909399;">
+          <!-- <thead>
+            <tr style="border-color:#C0C4CC">
+              <th>时间</th>
+              <th>源码</th>
+            </tr>
+          </thead>-->
+          <tbody style="font-size: 12px;background:#F2F6FC;">
+            <tr v-for="(item,index) in paraOriginal" :key="index">
+              <!-- <td style="width: 80px;">{{item.devTime}}</td> -->
+              <td style="text-align: center;">
+                <span
+                  v-for="(item1,index1) in item.originalData"
+                  :key="index1"
+                  style="display: inline-block; width: 180px;padding:0px;"
+                >
+                  <span
+                    v-for="(item,index2) in item1"
+                    :key="index2"
+                    style="display: inline-block; width: 14px;height: 14px;"
+                  >{{item}}</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </el-tab-pane>
+      <el-tab-pane label="参数" name="second" class="content itemHeight">
+        <li v-for="(item,index) in soundCode" :key="index">
+          <span>{{item.paraName}}</span>
+          <span>{{item.original}}</span>
+          <span>{{item.data}}</span>
+          <span>{{item.state}}</span>
+        </li>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
+import { log } from "util";
 // 卫星源码
 export default {
   data() {
     return {
-      // 数据整体存储
-      data: [],
-      searchObj: {
-        scCode: ""
-      },
-      tableConst: [],
-      disabled: false
+      activeName: "first",
+      index: 0
     };
   },
   props: {
     soundCode: {
       type: Array
+    },
+    paraOriginal: {
+      type: Array
     }
   },
   watch: {
-    searchObj: {
-      handler(newValue, oldValue) {
-        if (newValue) {
-          if (newValue.scCode === "") {
-            this.disabled = true;
-            this.data = this.tableConst;
-          } else {
-            this.disabled = false;
-          }
-        }
-      },
-      immediate: true,
-      deep: true
+    index(val) {
+      console.log(val);
     }
   },
-  mounted() {
-    this.initScId();
-  },
-  created() {
-    this.pageList();
-  },
+  mounted() {},
+  created() {},
   methods: {
-    pageList() {
-      // 发请求拿到数据并暂存全部数据,方便之后操作
-      this.data = this.soundCode;
-      this.tableConst = this.soundCode;
-      console.log(this.tableConst);
+    handleClick(tab, event) {
+      // console.log(tab, event);
+      const { index } = tab;
+      this.index = index;
     },
-    tableRowClassName({ row, rowIndex }) {
-      if (rowIndex === 1) {
-        return "warning-row";
-      } else if (rowIndex === 3) {
-        return "success-row";
-      }
-      return "";
-    },
-    // 处理数据
-    getList() {
-      this.data = this.soundCode;
-      // es6过滤得到满足搜索条件的展示数据list
-      this.data = this.data.filter((item, index) =>
-        item.scCode.includes(this.searchObj.scCode)
-      );
-    },
-    initScId() {
-      //改变scid的值
-      console.log(this.$route.params);
-      // console.log(this.$store.state.sc.scid);
-    },
-    //搜索过滤数据
-    search() {
-      this.getList();
-    },
-    goItem(val) {
+    goItem() {
       this.$router.push({
-        name: "scTelemeteringPara",
+        name: this.index === 0 ? "scTelemeteringCode" : "scTelemeteringPara",
         params: {
-          obj: val
+          obj: "参数"
         }
       });
     }
@@ -112,10 +91,39 @@ export default {
 </script>
 
 <style>
-.el-table .warning-row {
-  background: oldlace;
+.iconItem {
+  position: absolute;
+  left: 1090px;
+  top: 10px;
+  z-index: 999999999 !important;
 }
-.el-table .success-row {
-  background: #f0f9eb;
+.paraCode {
+  width: 100%;
+}
+.paraCode .itemHeight {
+  height: 300px;
+}
+.paraCode .content li {
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  border: 1px solid #ebeef5;
+  border-top: none;
+  font-size: 13px;
+}
+.paraCode .content li:nth-child(1) {
+  border-top: 1px solid #ebeef5;
+}
+.paraCode .content li span {
+  padding: 0 35px;
+}
+
+.el-tabs--border-card
+  > .el-tabs__header
+  .el-tabs__item:not(.is-disabled):hover {
+  color: #171819;
+}
+.el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+  color: #171819;
 }
 </style>

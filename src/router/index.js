@@ -36,17 +36,15 @@ export const constantRoutes = [{
     hidden: true
   },
 
-
-
   /**
    * @Layout 路由
    */
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   redirect: '/dashboard',
-  //   children: dashboardFirst
-  // },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dataMonitoring',
+    // children: dashboardFirst
+  },
   {
     path: '/dataMonitoring',
     component: Layout,

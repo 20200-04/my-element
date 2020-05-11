@@ -1,14 +1,8 @@
 <template>
   <section class="app-main">
-    <el-scrollbar
-      wrapClass="scrollbar-wrap"
-      :style="{height:scrollHeight}"
-      ref="scrollbarContainer"
-    >
-      <transition name="fade-transform" mode="out-in">
-        <router-view :key="key" />
-      </transition>
-    </el-scrollbar>
+    <transition name="fade-transform" mode="out-in">
+      <router-view :key="key" />
+    </transition>
   </section>
 </template>
 
@@ -41,6 +35,10 @@ export default {
 }
 .fixed-header + .app-main {
   padding-top: 50px;
+}
+
+.app-main {
+  padding-bottom: 50px;
 }
 </style>
 

@@ -9,7 +9,8 @@ const dataMonitoringFirst =
       component: () => import('@/views/DataMonitoring/scSum/index'),
       meta: {
         title: '数据监视',
-        icon: 'scSum'
+        icon: 'scSum',
+        affix: true
       }
     },
     {

@@ -4,7 +4,7 @@
       <el-col :span="6" v-for="(item, index) in scData" :key="index">
         <div @click="goItem(item)">
           <el-card :body-style="{ padding: '0px' }" class="card">
-            <img :src="item.scImage" class="image" />
+            <img src="../../../assets/scidImage.jpg" class="image" />
             <div class="wrap">
               <div class="left">
                 <div class="chunk">
@@ -75,8 +75,6 @@ export default {
           scName: "卫星" + i,
           scCode: "卫星代号" + i,
           scType: "卫星类型" + i,
-          scImage:
-            "http://img3.imgtn.bdimg.com/it/u=3964335244,3236047029&fm=26&gp=0.jpg",
           scHealth: i % 2 ? 0 : 1,
           alarmNum: i
         });

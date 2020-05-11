@@ -3,15 +3,22 @@
     <div class="fun-head">
       <el-button size="mini" type="success" @click="openModel(false)">添加应用识别过程</el-button>
       <div>
-        <el-select v-model="searchObj.apName" filterable clearable placeholder="请输入应用过程识别名称">
+        <el-button type="info" plain @click="dataAll" v-if="disabledScName">全部识别过程</el-button>
+        <el-input v-model="searchObj.apName" placeholder="请输入应用识别过程名称" style="width:190px;"></el-input>
+        <el-select
+          v-model="searchObj.scName"
+          filterable
+          clearable
+          :disabled="disabledScName"
+          placeholder="请选择卫星类型"
+        >
           <el-option
-            v-for="(item, index) in transmitObj.satelliteType"
-            :key="index"
+            v-for="item in satellite_scname"
+            :key="item.id"
             :label="item.name"
             :value="item.name"
           ></el-option>
         </el-select>
-        <el-input v-model="searchObj.scName" placeholder="请选择卫星名称" style="width:180px;"></el-input>
         <el-button type="primary" :disabled="disabled" @click="searchData">搜索</el-button>
       </div>
     </div>
@@ -75,9 +82,9 @@ export default {
   },
   data() {
     return {
+      disabledScName: false,
       satellite_scname: [],
       satellite_apname: [],
-
       paginations: {
         page: 1,
         limit: 14,
@@ -123,31 +130,36 @@ export default {
       deep: true
     }
   },
-  // mounted() {
-  //   console.log(this.$route.params);
-  //   if (this.$route.params.obj && this.$route.params.obj.sc_id) {
-  //     console.log(3333);
-  //     this.getListId(this.$route.params.obj.sc_id);
-  //   } else {
-  //     this.getList();
-  //   }
-  // },
-
+  mounted() {
+    const obj = this.$route.params.obj;
+    if (obj && obj.scId) {
+      this.getListId(obj.scId);
+      this.getSatelliteType();
+      this.searchObj.scName = obj.scName;
+      this.disabledScName = true;
+    } else {
+      this.getList();
+    }
+  },
   methods: {
+    init() {
+      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
+      this.getListAll();
+    },
     async getList() {
       this.layout.showLoading();
       const { data } = await scApInfo.getscApInfo();
       this.getSatelliteType();
       this.getSatelliteName();
       this.tableData = data;
-      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
-      this.getListAll();
+      this.init();
+      this.disabledScName = false;
+      this.searchObj.scName = "";
       this.layout.hideLoading();
     },
     //查询卫星名称
     async getSatelliteType() {
       const { data } = await scInfo.getScInfo();
-      console.log(data);
       let res = data.map(item => {
         return {
           id: item.scId,
@@ -155,7 +167,6 @@ export default {
         };
       });
       this.satellite_scname = res;
-      console.log(res);
     },
     //查询应用过程识别名称
     async getSatelliteName() {
@@ -167,26 +178,32 @@ export default {
         };
       });
       this.transmitObj.satelliteType = res;
-      console.log(res);
     },
     async addType(obj) {
       const { data } = await scApInfo.postscApInfo(obj);
-      console.log(data);
     },
     async deleteSingle(obj) {
       const { data } = await scApInfo.deletescApInfoId(obj);
-      console.log(data);
     },
     async putscApInfoId(obj) {
       console.log(obj);
       const { data } = await scApInfo.putscApInfoId(obj);
-      console.log(data);
     },
     async getListId(str) {
       this.layout.showLoading();
       const { data } = await scApInfo.getscApInfoId(str);
       this.tableData = data;
+      this.init();
       this.layout.hideLoading();
+    },
+    //恢复数据
+    dataAll() {
+      this.getList();
+      this.searchObj.apName = "";
+      this.$message({
+        message: "全部识别过程已开启",
+        type: "success"
+      });
     },
     openModel(e = false) {
       if (!e) {
@@ -213,7 +230,6 @@ export default {
           createTime: e.row.createTime,
           updateTime: e.row.updateTime
         };
-        console.log(e.row);
         this.editIndex = e.$index;
       }
       // 打开dialog
@@ -234,7 +250,6 @@ export default {
             });
             return (this.createModel = false);
           }
-          console.log(this.form);
           await this.addType(this.form);
           this.getList();
           this.$message({
@@ -242,7 +257,7 @@ export default {
             type: "success"
           });
           // 关闭模态框
-          this.createModel = false;
+          this.searchObj.scName = "";
         } else {
           console.log("error submit!!");
           return false;
@@ -272,7 +287,6 @@ export default {
       this.tableData = this.tableConst;
       this.tableData = filterFun(this.tableData, this.searchObj);
       this.getListAll();
-      // this.getList()
     },
     getListAll() {
       this.paginations.pageTotal = this.tableData.length;
@@ -282,7 +296,6 @@ export default {
           index >= this.paginations.limit * (this.paginations.page - 1)
       );
     },
-
     handleCurrentChange(val) {
       this.paginations.page = val;
       this.getListAll();
@@ -290,15 +303,6 @@ export default {
     handleSizeChange(val) {
       this.paginations.limit = val;
       this.getListAll();
-    },
-    // 配置页面
-    goItem(val) {
-      this.$router.push({
-        name: "scSubsytemType",
-        params: {
-          obj: val
-        }
-      });
     }
   }
 };
