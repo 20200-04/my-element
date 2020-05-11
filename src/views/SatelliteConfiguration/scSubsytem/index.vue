@@ -95,6 +95,7 @@ export default {
       tableData: [],
       tableDataCopy: [],
       multipleSelection: [],
+      tableConst:[],
       searchObj: {
         scName: "",
         subsytemName: ""
@@ -151,6 +152,7 @@ export default {
       this.layout.showLoading();
       const { data } = await scSubSytem.getScSubSytem();
       this.tableData = data;
+      this.tableConst = JSON.parse(JSON.stringify(this.tableData));
       this.getsatelliteType();
       this.getscSubsystemType();
       this.init();
@@ -199,8 +201,8 @@ export default {
     dataAll() {
       //恢复数据
       this.getList();
-      this.searchObj.subsytemName = "";
-      this.searchObj.scName = "";
+      // this.searchObj.subsytemName = "";
+      // this.searchObj.scName = "";
       this.$message({
         message: "全部卫星分系统已开启",
         type: "success"
@@ -292,6 +294,7 @@ export default {
       this.multipleSelection = val;
     },
     getListAll() {
+      console.log(this.tableData)
       this.paginations.pageTotal = this.tableData.length;
       this.tableDataCopy = this.tableData.filter(
         (item, index) =>
